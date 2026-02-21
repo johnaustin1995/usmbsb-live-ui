@@ -262,15 +262,54 @@ h1 {
 }
 
 #game-status {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.inning-arrow {
+  font-size: 11px;
+  line-height: 1;
+  color: #c8d7ff;
+  opacity: 0.95;
+}
+
+.inning-number {
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 800;
 }
 
 #count-status {
   margin-top: 4px;
   color: var(--muted);
   font-size: 13px;
+  display: flex;
+  justify-content: center;
+}
+
+.outs-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.out-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #253a64;
+  border: 1px solid #4b6295;
+}
+
+.out-dot.is-filled {
+  background: #f3c13f;
+  border-color: #f3c13f;
+  box-shadow: 0 0 8px rgba(243, 193, 63, 0.45);
 }
 
 .field-wrap {

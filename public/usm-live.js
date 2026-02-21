@@ -187,8 +187,8 @@ function renderScoreBanner(summary, selectedGame) {
   renderTeamLogo(elements.homeLogo, homeTeam);
   elements.awayScore.textContent = awayScore;
   elements.homeScore.textContent = homeScore;
-  elements.gameStatus.textContent = buildInningIndicator(summary, selectedGame);
-  elements.countStatus.textContent = buildCountLine(summary?.situation || null);
+  renderInningIndicator(elements.gameStatus, summary, selectedGame);
+  renderOutsDots(elements.countStatus, summary?.situation || null);
 }
 
 function renderTeamLogo(logoEl, teamName) {
@@ -476,31 +476,78 @@ function isBattedBallPlay(text) {
   );
 }
 
-function buildCountLine(situation) {
-  if (!situation) {
-    return "No count data";
-  }
-  const balls = valueOrQuestion(situation.count?.balls);
-  const strikes = valueOrQuestion(situation.count?.strikes);
-  const outs = formatOuts(situation.outs);
-  return `${balls}-${strikes} | ${outs}`;
-}
-
 function buildInningIndicator(summary, selectedGame) {
   const situation = summary?.situation || null;
   const inningFromSituation = Number.isFinite(situation?.inning) ? Number(situation.inning) : null;
   const halfFromSituation = normalizeHalf(situation?.half);
   if (inningFromSituation !== null && halfFromSituation) {
-    return `${halfFromSituation === "top" ? "▲" : "▼"} ${inningFromSituation}`;
+    return {
+      half: halfFromSituation,
+      inning: inningFromSituation,
+      text: null,
+    };
   }
 
   const statusText = String(summary?.statusText || selectedGame?.statusText || "Pregame");
   const parsed = parseInningFromStatus(statusText);
   if (parsed) {
-    return `${parsed.half === "top" ? "▲" : "▼"} ${parsed.inning}`;
+    return {
+      half: parsed.half,
+      inning: parsed.inning,
+      text: null,
+    };
   }
 
-  return statusText;
+  return {
+    half: null,
+    inning: null,
+    text: statusText,
+  };
+}
+
+function renderInningIndicator(target, summary, selectedGame) {
+  if (!target) {
+    return;
+  }
+
+  target.replaceChildren();
+  const indicator = buildInningIndicator(summary, selectedGame);
+  if (indicator.half && Number.isFinite(indicator.inning)) {
+    const arrow = document.createElement("span");
+    arrow.className = "inning-arrow";
+    arrow.textContent = indicator.half === "top" ? "▲" : "▼";
+
+    const number = document.createElement("span");
+    number.className = "inning-number";
+    number.textContent = String(indicator.inning);
+
+    target.append(arrow, number);
+    return;
+  }
+
+  target.textContent = indicator.text || "Pregame";
+}
+
+function renderOutsDots(target, situation) {
+  if (!target) {
+    return;
+  }
+
+  target.replaceChildren();
+  const outsRaw = Number.isFinite(situation?.outs) ? Math.trunc(Number(situation.outs)) : 0;
+  const outs = Math.max(0, Math.min(3, outsRaw));
+
+  const wrap = document.createElement("span");
+  wrap.className = "outs-dots";
+  wrap.setAttribute("aria-label", `${outs} ${outs === 1 ? "out" : "outs"}`);
+
+  for (let index = 0; index < 3; index += 1) {
+    const dot = document.createElement("span");
+    dot.className = `out-dot${index < outs ? " is-filled" : ""}`;
+    wrap.append(dot);
+  }
+
+  target.append(wrap);
 }
 
 function parseInningFromStatus(text) {
