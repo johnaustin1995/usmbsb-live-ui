@@ -157,6 +157,19 @@ h1 {
   letter-spacing: 0.06em;
 }
 
+.feed-divider {
+  margin: 10px 0 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  width: fit-content;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c7d8ff;
+  border: 1px solid #2f4a80;
+  background: rgba(32, 55, 104, 0.35);
+}
+
 .feed-item .text {
   margin-top: 5px;
   font-size: 15px;

@@ -121,13 +121,16 @@ app.get("/api/usm/live", async (req, res, next) => {
 
     if (summary) {
       const [playsResult, gameResult] = await Promise.allSettled([
-        getLiveStats(selectedGameId, "plays"),
+        loadCompleteLivePlayStats(selectedGameId, summary),
         getLiveStats(selectedGameId, "game"),
       ]);
 
       if (playsResult.status === "fulfilled") {
-        playsSections = playsResult.value.sections;
-        const events = extractLivePlayEvents(playsResult.value);
+        playsSections = playsResult.value.stats.sections;
+        if (playsResult.value.warning) {
+          playsError = playsResult.value.warning;
+        }
+        const events = extractLivePlayEvents(playsResult.value.stats);
         const states = deriveLivePlayStates(events, summary);
         plays = events.map((play) => {
           const state = states.get(play.key);
@@ -776,6 +779,77 @@ function normalizeUsmScheduleGames(games: UsmScheduleGameRaw[]): UsmScheduleGame
     }
     return a.gameId - b.gameId;
   });
+}
+
+async function loadCompleteLivePlayStats(
+  gameId: number,
+  summary: Awaited<ReturnType<typeof getLiveSummary>>
+): Promise<{ stats: Awaited<ReturnType<typeof getLiveStats>>; warning: string | null }> {
+  const basePlays = await getLiveStats(gameId, "plays");
+  const innings = listPlayedInningsFromSummary(summary);
+  if (innings.length === 0) {
+    return { stats: basePlays, warning: null };
+  }
+
+  const inningViews = innings.map((inning) => `plays_inning_${inning}`);
+  const inningResults = await Promise.allSettled(inningViews.map((view) => getLiveStats(gameId, view)));
+
+  const successfulStats: Array<Awaited<ReturnType<typeof getLiveStats>>> = [];
+  const failedViews: string[] = [];
+
+  inningResults.forEach((result, index) => {
+    if (result.status === "fulfilled" && result.value.sections.length > 0) {
+      successfulStats.push(result.value);
+      return;
+    }
+    failedViews.push(inningViews[index]);
+  });
+
+  if (successfulStats.length === 0) {
+    const fallbackWarning =
+      failedViews.length > 0
+        ? `Fallback to current inning plays; inning views unavailable (${failedViews.join(", ")}).`
+        : null;
+    return { stats: basePlays, warning: fallbackWarning };
+  }
+
+  const mergedSections = successfulStats.flatMap((entry) => entry.sections);
+  const warning =
+    failedViews.length > 0 ? `Some inning play views were unavailable (${failedViews.join(", ")}).` : null;
+
+  return {
+    stats: {
+      ...basePlays,
+      view: "plays_all",
+      sections: mergedSections,
+      fetchedAt: new Date().toISOString(),
+    },
+    warning,
+  };
+}
+
+function listPlayedInningsFromSummary(summary: Awaited<ReturnType<typeof getLiveSummary>>): number[] {
+  const innings = new Set<number>();
+  const currentInning = summary.situation?.inning;
+  if (Number.isFinite(currentInning) && (currentInning as number) > 0 && (currentInning as number) < 40) {
+    innings.add(Math.trunc(currentInning as number));
+  }
+
+  const rows = summary.lineScore?.rows ?? [];
+  for (const row of rows) {
+    for (const inningEntry of row.innings) {
+      const inning = inningEntry.inning;
+      if (!Number.isFinite(inning) || inning < 1 || inning >= 40) {
+        continue;
+      }
+      if (inningEntry.value === null) {
+        continue;
+      }
+      innings.add(Math.trunc(inning));
+    }
+  }
+
+  return Array.from(innings).sort((a, b) => a - b);
 }
 
 function pickUsmGameId(

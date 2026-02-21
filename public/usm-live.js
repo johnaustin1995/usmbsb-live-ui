@@ -216,16 +216,27 @@ function renderTeamLogo(logoEl, teamName) {
 }
 
 function renderFeed(plays) {
-  const recent = [...plays].reverse().slice(0, 36);
-  elements.feedCount.textContent = `${recent.length} recent plays`;
+  const ordered = [...plays].reverse();
+  elements.feedCount.textContent = `${ordered.length} plays`;
   elements.playFeed.innerHTML = "";
 
-  if (recent.length === 0) {
+  if (ordered.length === 0) {
     elements.playFeed.innerHTML = '<p class="empty">No play-by-play data yet.</p>';
     return;
   }
 
-  for (const play of recent) {
+  let previousHalfInning = null;
+
+  for (const play of ordered) {
+    const halfInningLabel = toHalfInningLabel(play);
+    if (halfInningLabel && halfInningLabel !== previousHalfInning) {
+      const divider = document.createElement("div");
+      divider.className = "feed-divider";
+      divider.textContent = halfInningLabel;
+      elements.playFeed.append(divider);
+      previousHalfInning = halfInningLabel;
+    }
+
     const item = document.createElement("article");
     item.className = "feed-item";
 
@@ -250,6 +261,13 @@ function renderFeed(plays) {
 
     elements.playFeed.append(item);
   }
+}
+
+function toHalfInningLabel(play) {
+  if (!play || !Number.isFinite(play.inning) || !play.half) {
+    return null;
+  }
+  return `${play.half === "top" ? "top" : "bot"} ${play.inning}`;
 }
 
 function renderDuel(summary) {
