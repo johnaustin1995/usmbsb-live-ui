@@ -1,4 +1,5 @@
 const REFRESH_INTERVAL_MS = 15000;
+const brandingApi = window.ncaabsbBranding || null;
 
 const state = {
   selectedGameId: null,
@@ -15,6 +16,8 @@ const elements = {
   playFeed: document.getElementById("play-feed"),
   awayCode: document.getElementById("away-code"),
   homeCode: document.getElementById("home-code"),
+  awayLogo: document.getElementById("away-logo"),
+  homeLogo: document.getElementById("home-logo"),
   awayRecord: document.getElementById("away-record"),
   homeRecord: document.getElementById("home-record"),
   awayScore: document.getElementById("away-score"),
@@ -30,9 +33,9 @@ const elements = {
   sprayLayer: document.getElementById("spray-layer"),
 };
 
-init();
+void init();
 
-function init() {
+async function init() {
   const params = new URLSearchParams(window.location.search);
   const idParam = Number.parseInt(params.get("id") || "", 10);
   state.selectedGameId = Number.isFinite(idParam) ? idParam : null;
@@ -50,8 +53,21 @@ function init() {
     fetchAndRender();
   });
 
+  await loadBranding();
   fetchAndRender();
   resetTimer();
+}
+
+async function loadBranding() {
+  if (!brandingApi || typeof brandingApi.load !== "function") {
+    return;
+  }
+
+  try {
+    await brandingApi.load();
+  } catch (_error) {
+    // Branding is optional; keep UI functional without it.
+  }
 }
 
 function resetTimer() {
@@ -165,10 +181,36 @@ function renderScoreBanner(summary, selectedGame) {
   elements.homeCode.textContent = abbreviateTeam(homeTeam);
   elements.awayRecord.textContent = awayTeam;
   elements.homeRecord.textContent = homeTeam;
+  renderTeamLogo(elements.awayLogo, awayTeam);
+  renderTeamLogo(elements.homeLogo, homeTeam);
   elements.awayScore.textContent = awayScore;
   elements.homeScore.textContent = homeScore;
   elements.gameStatus.textContent = summary?.statusText || selectedGame?.statusText || "Pregame";
   elements.countStatus.textContent = buildCountLine(summary?.situation || null);
+}
+
+function renderTeamLogo(logoEl, teamName) {
+  if (!logoEl) {
+    return;
+  }
+
+  if (!brandingApi || typeof brandingApi.lookup !== "function" || typeof brandingApi.chooseLogo !== "function") {
+    logoEl.hidden = true;
+    logoEl.removeAttribute("src");
+    return;
+  }
+
+  const branding = brandingApi.lookup(teamName);
+  const logoSrc = brandingApi.chooseLogo(branding, { preferDark: false });
+  if (!logoSrc) {
+    logoEl.hidden = true;
+    logoEl.removeAttribute("src");
+    return;
+  }
+
+  logoEl.src = logoSrc;
+  logoEl.alt = `${teamName} logo`;
+  logoEl.hidden = false;
 }
 
 function renderFeed(plays) {

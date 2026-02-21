@@ -1,0 +1,1398 @@
+{
+  "fetchedAt": "2026-02-17T04:16:52.202Z",
+  "sourceUrl": "https://d1baseball.com/teams/",
+  "season": "2026",
+  "conferences": [
+    {
+      "id": 26,
+      "name": "A10",
+      "slug": "atlantic-10-conference",
+      "url": "https://d1baseball.com/conference/atlantic-10-conference/2026/"
+    },
+    {
+      "id": 13,
+      "name": "ACC",
+      "slug": "atlantic-coast-conference",
+      "url": "https://d1baseball.com/conference/atlantic-coast-conference/2026/"
+    },
+    {
+      "id": 5,
+      "name": "America East",
+      "slug": "america-east-conference",
+      "url": "https://d1baseball.com/conference/america-east-conference/2026/"
+    },
+    {
+      "id": 24,
+      "name": "American",
+      "slug": "american-athletic-conference",
+      "url": "https://d1baseball.com/conference/american-athletic-conference/2026/"
+    },
+    {
+      "id": 28,
+      "name": "ASUN",
+      "slug": "atlantic-sun-conference",
+      "url": "https://d1baseball.com/conference/atlantic-sun-conference/2026/"
+    },
+    {
+      "id": 11,
+      "name": "Big 12",
+      "slug": "big-12-conference",
+      "url": "https://d1baseball.com/conference/big-12-conference/2026/"
+    },
+    {
+      "id": 17,
+      "name": "Big East",
+      "slug": "big-east-conference",
+      "url": "https://d1baseball.com/conference/big-east-conference/2026/"
+    },
+    {
+      "id": 21,
+      "name": "Big South",
+      "slug": "big-south-conference",
+      "url": "https://d1baseball.com/conference/big-south-conference/2026/"
+    },
+    {
+      "id": 30,
+      "name": "Big Ten",
+      "slug": "big-ten-conference",
+      "url": "https://d1baseball.com/conference/big-ten-conference/2026/"
+    },
+    {
+      "id": 19,
+      "name": "Big West",
+      "slug": "big-west-conference",
+      "url": "https://d1baseball.com/conference/big-west-conference/2026/"
+    },
+    {
+      "id": 23,
+      "name": "C-USA",
+      "slug": "conference-usa",
+      "url": "https://d1baseball.com/conference/conference-usa/2026/"
+    },
+    {
+      "id": 25,
+      "name": "CAA",
+      "slug": "colonial-athletic-association",
+      "url": "https://d1baseball.com/conference/colonial-athletic-association/2026/"
+    },
+    {
+      "id": 297,
+      "name": "DI Independent",
+      "slug": "di-independent",
+      "url": "https://d1baseball.com/conference/di-independent/2026/"
+    },
+    {
+      "id": 31,
+      "name": "Horizon",
+      "slug": "horizon-league",
+      "url": "https://d1baseball.com/conference/horizon-league/2026/"
+    },
+    {
+      "id": 15,
+      "name": "Ivy",
+      "slug": "ivy-league",
+      "url": "https://d1baseball.com/conference/ivy-league/2026/"
+    },
+    {
+      "id": 22,
+      "name": "MAAC",
+      "slug": "metro-atlantic-athletic-conference",
+      "url": "https://d1baseball.com/conference/metro-atlantic-athletic-conference/2026/"
+    },
+    {
+      "id": 10,
+      "name": "MAC",
+      "slug": "mid-american-conference",
+      "url": "https://d1baseball.com/conference/mid-american-conference/2026/"
+    },
+    {
+      "id": 14,
+      "name": "Missouri Valley",
+      "slug": "missouri-valley-conference",
+      "url": "https://d1baseball.com/conference/missouri-valley-conference/2026/"
+    },
+    {
+      "id": 2,
+      "name": "MW",
+      "slug": "mountain-west-conference",
+      "url": "https://d1baseball.com/conference/mountain-west-conference/2026/"
+    },
+    {
+      "id": 16,
+      "name": "NEC",
+      "slug": "northeast-conference",
+      "url": "https://d1baseball.com/conference/northeast-conference/2026/"
+    },
+    {
+      "id": 9,
+      "name": "OVC",
+      "slug": "ohio-valley-conference",
+      "url": "https://d1baseball.com/conference/ohio-valley-conference/2026/"
+    },
+    {
+      "id": 8,
+      "name": "Patriot",
+      "slug": "patriot-league",
+      "url": "https://d1baseball.com/conference/patriot-league/2026/"
+    },
+    {
+      "id": 3,
+      "name": "SEC",
+      "slug": "sec",
+      "url": "https://d1baseball.com/conference/sec/2026/"
+    },
+    {
+      "id": 27,
+      "name": "SOCON",
+      "slug": "southern-conference",
+      "url": "https://d1baseball.com/conference/southern-conference/2026/"
+    },
+    {
+      "id": 1,
+      "name": "Southland",
+      "slug": "southland-conference",
+      "url": "https://d1baseball.com/conference/southland-conference/2026/"
+    },
+    {
+      "id": 29,
+      "name": "Summit",
+      "slug": "summit-league",
+      "url": "https://d1baseball.com/conference/summit-league/2026/"
+    },
+    {
+      "id": 6,
+      "name": "Sun Belt",
+      "slug": "sun-belt-conference",
+      "url": "https://d1baseball.com/conference/sun-belt-conference/2026/"
+    },
+    {
+      "id": 4,
+      "name": "SWAC",
+      "slug": "southwestern-athletic-conference",
+      "url": "https://d1baseball.com/conference/southwestern-athletic-conference/2026/"
+    },
+    {
+      "id": 20,
+      "name": "WAC",
+      "slug": "western-athletic-conference",
+      "url": "https://d1baseball.com/conference/western-athletic-conference/2026/"
+    },
+    {
+      "id": 18,
+      "name": "West Coast",
+      "slug": "west-coast-conference",
+      "url": "https://d1baseball.com/conference/west-coast-conference/2026/"
+    }
+  ],
+  "teams": [
+    {
+      "id": 144345,
+      "name": "Abilene Christian",
+      "slug": "abilchrist",
+      "season": "2026",
+      "conference": {
+        "id": 20,
+        "name": "WAC",
+        "slug": "western-athletic-conference",
+        "url": "https://d1baseball.com/conference/western-athletic-conference/2026/"
+      },
+      "logoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/abilene-christian.svg",
+      "teamUrl": "https://d1baseball.com/team/abilchrist/2026/",
+      "scheduleUrl": "https://d1baseball.com/team/abilchrist/2026/schedule/",
+      "statsUrl": "https://d1baseball.com/team/abilchrist/2026/stats/",
+      "schedule": [
+        {
+          "scheduleId": "35f725a9e4494befa80ea947e9b48488",
+          "dateLabel": "Fri, Feb 13",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260213",
+          "locationType": "vs",
+          "opponentName": "St. Thomas",
+          "opponentSlug": "stthomas",
+          "opponentUrl": "https://d1baseball.com/team/stthomas/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/st-thomas-mn.svg",
+          "resultText": "W 7 - 1",
+          "resultUrl": "https://www.acusports.com/boxscore.aspx?id=11417",
+          "outcome": "win",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Fri, Feb 13",
+            "loc": "vs",
+            "opponent": "St. Thomas",
+            "results": "W 7 - 1",
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "88f5909e2695487fad32217fb480cc10",
+          "dateLabel": "Sat, Feb 14",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260214",
+          "locationType": "vs",
+          "opponentName": "St. Thomas",
+          "opponentSlug": "stthomas",
+          "opponentUrl": "https://d1baseball.com/team/stthomas/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/st-thomas-mn.svg",
+          "resultText": "W 6 - 5",
+          "resultUrl": "https://www.acusports.com/boxscore.aspx?id=11418",
+          "outcome": "win",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sat, Feb 14",
+            "loc": "vs",
+            "opponent": "St. Thomas",
+            "results": "W 6 - 5",
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "64598298609b41e7b0772ed7da810320",
+          "dateLabel": "Sat, Feb 14",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260214",
+          "locationType": "vs",
+          "opponentName": "St. Thomas",
+          "opponentSlug": "stthomas",
+          "opponentUrl": "https://d1baseball.com/team/stthomas/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/st-thomas-mn.svg",
+          "resultText": "L 11 - 10",
+          "resultUrl": "https://www.acusports.com/boxscore.aspx?id=11471",
+          "outcome": "loss",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sat, Feb 14",
+            "loc": "vs",
+            "opponent": "St. Thomas",
+            "results": "L 11 - 10",
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "04164ef40d3649a4a33060ce27a6f7ec",
+          "dateLabel": "Sun, Feb 15",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260215",
+          "locationType": "vs",
+          "opponentName": "St. Thomas",
+          "opponentSlug": "stthomas",
+          "opponentUrl": "https://d1baseball.com/team/stthomas/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/st-thomas-mn.svg",
+          "resultText": "W 13 - 2",
+          "resultUrl": "https://www.acusports.com/boxscore.aspx?id=11419",
+          "outcome": "win",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sun, Feb 15",
+            "loc": "vs",
+            "opponent": "St. Thomas",
+            "results": "W 13 - 2",
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "2b476c71f2f142d689aea3958b8b8f58",
+          "dateLabel": "Tue, Feb 17",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260217",
+          "locationType": "@",
+          "opponentName": "Dallas Baptist",
+          "opponentSlug": "dallasbapt",
+          "opponentUrl": "https://d1baseball.com/team/dallasbapt/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/dallas-baptist.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Dallas, Texas, Horner Ballpark",
+          "columns": {
+            "date": "Tue, Feb 17",
+            "loc": "@",
+            "opponent": "Dallas Baptist",
+            "results": null,
+            "win_prob": null,
+            "notes": "Dallas, Texas, Horner Ballpark"
+          }
+        },
+        {
+          "scheduleId": "eb6c80f674f74e2185a64b9b4de7d092",
+          "dateLabel": "Fri, Feb 20",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260220",
+          "locationType": "vs",
+          "opponentName": "Oral Roberts",
+          "opponentSlug": "oralrob",
+          "opponentUrl": "https://d1baseball.com/team/oralrob/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/oral-roberts.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Fri, Feb 20",
+            "loc": "vs",
+            "opponent": "Oral Roberts",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "c4a212a72ebe4b7cacb6c4947b24c058",
+          "dateLabel": "Sat, Feb 21",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260221",
+          "locationType": "vs",
+          "opponentName": "Oral Roberts",
+          "opponentSlug": "oralrob",
+          "opponentUrl": "https://d1baseball.com/team/oralrob/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/oral-roberts.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sat, Feb 21",
+            "loc": "vs",
+            "opponent": "Oral Roberts",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "400b7e4038924f33bddba908ce4d51ab",
+          "dateLabel": "Sun, Feb 22",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260222",
+          "locationType": "vs",
+          "opponentName": "Oral Roberts",
+          "opponentSlug": "oralrob",
+          "opponentUrl": "https://d1baseball.com/team/oralrob/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/oral-roberts.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sun, Feb 22",
+            "loc": "vs",
+            "opponent": "Oral Roberts",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "a31f9b1aa2bf46b49ccb0146044317e3",
+          "dateLabel": "Fri, Feb 27",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260227",
+          "locationType": "@",
+          "opponentName": "Texas State",
+          "opponentSlug": "txstate",
+          "opponentUrl": "https://d1baseball.com/team/txstate/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/texas-st.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Cleburne, Texas, La Moderna Field",
+          "columns": {
+            "date": "Fri, Feb 27",
+            "loc": "@",
+            "opponent": "Texas State",
+            "results": null,
+            "win_prob": null,
+            "notes": "Cleburne, Texas, La Moderna Field"
+          }
+        },
+        {
+          "scheduleId": "55f2f802348042b5830272852601adca",
+          "dateLabel": "Sat, Feb 28",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260228",
+          "locationType": "vs",
+          "opponentName": "Creighton",
+          "opponentSlug": "creighton",
+          "opponentUrl": "https://d1baseball.com/team/creighton/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/creighton.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Cleburne, Texas, La Moderna Field",
+          "columns": {
+            "date": "Sat, Feb 28",
+            "loc": "vs",
+            "opponent": "Creighton",
+            "results": null,
+            "win_prob": null,
+            "notes": "Cleburne, Texas, La Moderna Field"
+          }
+        },
+        {
+          "scheduleId": "20fbf09cd0c24cb6adce32e24ae986c0",
+          "dateLabel": "Sun, Mar 1",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260301",
+          "locationType": "@",
+          "opponentName": "Texas State",
+          "opponentSlug": "txstate",
+          "opponentUrl": "https://d1baseball.com/team/txstate/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/texas-st.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Cleburne, Texas, La Moderna Field",
+          "columns": {
+            "date": "Sun, Mar 1",
+            "loc": "@",
+            "opponent": "Texas State",
+            "results": null,
+            "win_prob": null,
+            "notes": "Cleburne, Texas, La Moderna Field"
+          }
+        },
+        {
+          "scheduleId": "5b1f43e35ca0421ba59ea357c474eb40",
+          "dateLabel": "Tue, Mar 3",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260303",
+          "locationType": "@",
+          "opponentName": "TCU",
+          "opponentSlug": "tcu",
+          "opponentUrl": "https://d1baseball.com/team/tcu/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/tcu.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Fort Worth, Texas, Lupton Stadium",
+          "columns": {
+            "date": "Tue, Mar 3",
+            "loc": "@",
+            "opponent": "TCU",
+            "results": null,
+            "win_prob": null,
+            "notes": "Fort Worth, Texas, Lupton Stadium"
+          }
+        },
+        {
+          "scheduleId": "29f3793d07dc457d8e5e70cd9e3486fe",
+          "dateLabel": "Wed, Mar 4",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260304",
+          "locationType": "vs",
+          "opponentName": "Stephen F. Austin",
+          "opponentSlug": "sfaustin",
+          "opponentUrl": "https://d1baseball.com/team/sfaustin/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/stephen-f-austin.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Wed, Mar 4",
+            "loc": "vs",
+            "opponent": "Stephen F. Austin",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "f113f4c75dec4c8fb52cff3424d43e17",
+          "dateLabel": "Fri, Mar 6",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260306",
+          "locationType": "vs",
+          "opponentName": "Rice",
+          "opponentSlug": "rice",
+          "opponentUrl": "https://d1baseball.com/team/rice/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/rice.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Fri, Mar 6",
+            "loc": "vs",
+            "opponent": "Rice",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "a90baa759a3e4e7793ab63472cae1cd2",
+          "dateLabel": "Sat, Mar 7",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260307",
+          "locationType": "vs",
+          "opponentName": "Rice",
+          "opponentSlug": "rice",
+          "opponentUrl": "https://d1baseball.com/team/rice/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/rice.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sat, Mar 7",
+            "loc": "vs",
+            "opponent": "Rice",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "d7e8fa3291834c3d95a2f1b3bc1f70d9",
+          "dateLabel": "Sun, Mar 8",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260308",
+          "locationType": "vs",
+          "opponentName": "Rice",
+          "opponentSlug": "rice",
+          "opponentUrl": "https://d1baseball.com/team/rice/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/rice.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sun, Mar 8",
+            "loc": "vs",
+            "opponent": "Rice",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "ce7e0d8199a546aca1439dfef2ed5982",
+          "dateLabel": "Wed, Mar 11",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260311",
+          "locationType": "@",
+          "opponentName": "Incarnate Word",
+          "opponentSlug": "incarnword",
+          "opponentUrl": "https://d1baseball.com/team/incarnword/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/incarnate-word.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "San Antonio, TX, Sullivan Field, Sponsored by H-E-B",
+          "columns": {
+            "date": "Wed, Mar 11",
+            "loc": "@",
+            "opponent": "Incarnate Word",
+            "results": null,
+            "win_prob": null,
+            "notes": "San Antonio, TX, Sullivan Field, Sponsored by H-E-B"
+          }
+        },
+        {
+          "scheduleId": "31f2e3ead0f14c0bbfe5b581759df6c4",
+          "dateLabel": "Fri, Mar 13",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260313",
+          "locationType": "vs",
+          "opponentName": "Loyola Marymount",
+          "opponentSlug": "loyolamary",
+          "opponentUrl": "https://d1baseball.com/team/loyolamary/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/loyola-marymount.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Fri, Mar 13",
+            "loc": "vs",
+            "opponent": "Loyola Marymount",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "75a084022df74306baf27fb912c92805",
+          "dateLabel": "Sat, Mar 14",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260314",
+          "locationType": "vs",
+          "opponentName": "Loyola Marymount",
+          "opponentSlug": "loyolamary",
+          "opponentUrl": "https://d1baseball.com/team/loyolamary/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/loyola-marymount.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sat, Mar 14",
+            "loc": "vs",
+            "opponent": "Loyola Marymount",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "d1769e5daba24789bb7a5ed822de84b6",
+          "dateLabel": "Sun, Mar 15",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260315",
+          "locationType": "vs",
+          "opponentName": "Loyola Marymount",
+          "opponentSlug": "loyolamary",
+          "opponentUrl": "https://d1baseball.com/team/loyolamary/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/loyola-marymount.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sun, Mar 15",
+            "loc": "vs",
+            "opponent": "Loyola Marymount",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "29190f4da4844d8eb96e82811dfa033d",
+          "dateLabel": "Wed, Mar 18",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260318",
+          "locationType": "vs",
+          "opponentName": "Incarnate Word",
+          "opponentSlug": "incarnword",
+          "opponentUrl": "https://d1baseball.com/team/incarnword/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/incarnate-word.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Wed, Mar 18",
+            "loc": "vs",
+            "opponent": "Incarnate Word",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "560ef539869144079df886072f9e610a",
+          "dateLabel": "Fri, Mar 20",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260320",
+          "locationType": "@",
+          "opponentName": "New Mexico",
+          "opponentSlug": "nmexico",
+          "opponentUrl": "https://d1baseball.com/team/nmexico/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/new-mexico.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Lobo Baseball Field / Albuquerque, N.M.",
+          "columns": {
+            "date": "Fri, Mar 20",
+            "loc": "@",
+            "opponent": "New Mexico",
+            "results": null,
+            "win_prob": null,
+            "notes": "Lobo Baseball Field / Albuquerque, N.M."
+          }
+        },
+        {
+          "scheduleId": "c83541385afe4228986be9eabaa061aa",
+          "dateLabel": "Sat, Mar 21",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260321",
+          "locationType": "@",
+          "opponentName": "New Mexico",
+          "opponentSlug": "nmexico",
+          "opponentUrl": "https://d1baseball.com/team/nmexico/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/new-mexico.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Lobo Baseball Field / Albuquerque, N.M.",
+          "columns": {
+            "date": "Sat, Mar 21",
+            "loc": "@",
+            "opponent": "New Mexico",
+            "results": null,
+            "win_prob": null,
+            "notes": "Lobo Baseball Field / Albuquerque, N.M."
+          }
+        },
+        {
+          "scheduleId": "4393ffa36e1a45e4aa1303be8f97c96c",
+          "dateLabel": "Sun, Mar 22",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260322",
+          "locationType": "@",
+          "opponentName": "New Mexico",
+          "opponentSlug": "nmexico",
+          "opponentUrl": "https://d1baseball.com/team/nmexico/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/new-mexico.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Lobo Baseball Field / Albuquerque, N.M.",
+          "columns": {
+            "date": "Sun, Mar 22",
+            "loc": "@",
+            "opponent": "New Mexico",
+            "results": null,
+            "win_prob": null,
+            "notes": "Lobo Baseball Field / Albuquerque, N.M."
+          }
+        },
+        {
+          "scheduleId": "e1338806c3d74969a1266a864a778362",
+          "dateLabel": "Wed, Mar 25",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260325",
+          "locationType": "@",
+          "opponentName": "Stephen F. Austin",
+          "opponentSlug": "sfaustin",
+          "opponentUrl": "https://d1baseball.com/team/sfaustin/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/stephen-f-austin.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Nacogdoches, Texas, Pilgrim's Park",
+          "columns": {
+            "date": "Wed, Mar 25",
+            "loc": "@",
+            "opponent": "Stephen F. Austin",
+            "results": null,
+            "win_prob": null,
+            "notes": "Nacogdoches, Texas, Pilgrim's Park"
+          }
+        },
+        {
+          "scheduleId": "9acace3c28de43dba7ff850fbd9e74f6",
+          "dateLabel": "Fri, Mar 27",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260327",
+          "locationType": "@",
+          "opponentName": "McNeese",
+          "opponentSlug": "mcneese",
+          "opponentUrl": "https://d1baseball.com/team/mcneese/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/mcneese.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Lake Charles, La., Joe Miller Ballpark",
+          "columns": {
+            "date": "Fri, Mar 27",
+            "loc": "@",
+            "opponent": "McNeese",
+            "results": null,
+            "win_prob": null,
+            "notes": "Lake Charles, La., Joe Miller Ballpark"
+          }
+        },
+        {
+          "scheduleId": "be30c65cf0304bca8bf2a90aa3d32f59",
+          "dateLabel": "Sat, Mar 28",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260328",
+          "locationType": "@",
+          "opponentName": "McNeese",
+          "opponentSlug": "mcneese",
+          "opponentUrl": "https://d1baseball.com/team/mcneese/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/mcneese.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Lake Charles, La., Joe Miller Ballpark",
+          "columns": {
+            "date": "Sat, Mar 28",
+            "loc": "@",
+            "opponent": "McNeese",
+            "results": null,
+            "win_prob": null,
+            "notes": "Lake Charles, La., Joe Miller Ballpark"
+          }
+        },
+        {
+          "scheduleId": "bf79d4f1b0eb494d8a48c7c54a58550b",
+          "dateLabel": "Sun, Mar 29",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260329",
+          "locationType": "@",
+          "opponentName": "McNeese",
+          "opponentSlug": "mcneese",
+          "opponentUrl": "https://d1baseball.com/team/mcneese/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/mcneese.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Lake Charles, La., Joe Miller Ballpark",
+          "columns": {
+            "date": "Sun, Mar 29",
+            "loc": "@",
+            "opponent": "McNeese",
+            "results": null,
+            "win_prob": null,
+            "notes": "Lake Charles, La., Joe Miller Ballpark"
+          }
+        },
+        {
+          "scheduleId": "0b7dcf275a4a477889ca91341a3fda64",
+          "dateLabel": "Tue, Mar 31",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260331",
+          "locationType": "@",
+          "opponentName": "Texas Tech",
+          "opponentSlug": "txtech",
+          "opponentUrl": "https://d1baseball.com/team/txtech/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/texas-tech.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Lubbock, Texas, Dan Law Field at Rip Griffin Park",
+          "columns": {
+            "date": "Tue, Mar 31",
+            "loc": "@",
+            "opponent": "Texas Tech",
+            "results": null,
+            "win_prob": null,
+            "notes": "Lubbock, Texas, Dan Law Field at Rip Griffin Park"
+          }
+        },
+        {
+          "scheduleId": "9e8be40e66884a27b001b670de304e1f",
+          "dateLabel": "Thu, Apr 2",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260402",
+          "locationType": "vs",
+          "opponentName": "California Baptist",
+          "opponentSlug": "californiabaptist",
+          "opponentUrl": "https://d1baseball.com/team/californiabaptist/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/california-baptist.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Thu, Apr 2",
+            "loc": "vs",
+            "opponent": "California Baptist",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "afa321311c094c51b4c37da2300be2ae",
+          "dateLabel": "Fri, Apr 3",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260403",
+          "locationType": "vs",
+          "opponentName": "California Baptist",
+          "opponentSlug": "californiabaptist",
+          "opponentUrl": "https://d1baseball.com/team/californiabaptist/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/california-baptist.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Fri, Apr 3",
+            "loc": "vs",
+            "opponent": "California Baptist",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "4a5232a21ad34aa39d42adebaea14a7e",
+          "dateLabel": "Sat, Apr 4",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260404",
+          "locationType": "vs",
+          "opponentName": "California Baptist",
+          "opponentSlug": "californiabaptist",
+          "opponentUrl": "https://d1baseball.com/team/californiabaptist/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/california-baptist.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sat, Apr 4",
+            "loc": "vs",
+            "opponent": "California Baptist",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "ed2d6cff8be3467c81aec5b1e266b072",
+          "dateLabel": "Tue, Apr 7",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260407",
+          "locationType": "vs",
+          "opponentName": "TCU",
+          "opponentSlug": "tcu",
+          "opponentUrl": "https://d1baseball.com/team/tcu/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/tcu.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Tue, Apr 7",
+            "loc": "vs",
+            "opponent": "TCU",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "ac93e586de474f309b4c2864fe308ac5",
+          "dateLabel": "Fri, Apr 10",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260410",
+          "locationType": "@",
+          "opponentName": "Tarleton",
+          "opponentSlug": "tarletonst",
+          "opponentUrl": "https://d1baseball.com/team/tarletonst/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/tarleton-st.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Stephenville, Texas, Tarleton State Baseball Complex",
+          "columns": {
+            "date": "Fri, Apr 10",
+            "loc": "@",
+            "opponent": "Tarleton",
+            "results": null,
+            "win_prob": null,
+            "notes": "Stephenville, Texas, Tarleton State Baseball Complex"
+          }
+        },
+        {
+          "scheduleId": "7bee4008477d47eca470ebb680b4f7b4",
+          "dateLabel": "Sat, Apr 11",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260411",
+          "locationType": "@",
+          "opponentName": "Tarleton",
+          "opponentSlug": "tarletonst",
+          "opponentUrl": "https://d1baseball.com/team/tarletonst/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/tarleton-st.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Stephenville, Texas, Tarleton State Baseball Complex",
+          "columns": {
+            "date": "Sat, Apr 11",
+            "loc": "@",
+            "opponent": "Tarleton",
+            "results": null,
+            "win_prob": null,
+            "notes": "Stephenville, Texas, Tarleton State Baseball Complex"
+          }
+        },
+        {
+          "scheduleId": "b0e1298a9d014692a1fd5534cb979f96",
+          "dateLabel": "Sun, Apr 12",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260412",
+          "locationType": "@",
+          "opponentName": "Tarleton",
+          "opponentSlug": "tarletonst",
+          "opponentUrl": "https://d1baseball.com/team/tarletonst/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/tarleton-st.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Stephenville, Texas, Tarleton State Baseball Complex",
+          "columns": {
+            "date": "Sun, Apr 12",
+            "loc": "@",
+            "opponent": "Tarleton",
+            "results": null,
+            "win_prob": null,
+            "notes": "Stephenville, Texas, Tarleton State Baseball Complex"
+          }
+        },
+        {
+          "scheduleId": "b22f9cc573c941e09896120a984010ef",
+          "dateLabel": "Tue, Apr 14",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260414",
+          "locationType": "vs",
+          "opponentName": "Texas Tech",
+          "opponentSlug": "txtech",
+          "opponentUrl": "https://d1baseball.com/team/txtech/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/texas-tech.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Tue, Apr 14",
+            "loc": "vs",
+            "opponent": "Texas Tech",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "d89ce881c7de4def82a34138e8b33640",
+          "dateLabel": "Fri, Apr 17",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260417",
+          "locationType": "@",
+          "opponentName": "Indiana",
+          "opponentSlug": "indiana",
+          "opponentUrl": "https://d1baseball.com/team/indiana/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/indiana.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Bloomington, Ind., Bart Kaufman Field",
+          "columns": {
+            "date": "Fri, Apr 17",
+            "loc": "@",
+            "opponent": "Indiana",
+            "results": null,
+            "win_prob": null,
+            "notes": "Bloomington, Ind., Bart Kaufman Field"
+          }
+        },
+        {
+          "scheduleId": "6655990a3a3a4d5fac9b94fb9035e2a3",
+          "dateLabel": "Sat, Apr 18",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260418",
+          "locationType": "@",
+          "opponentName": "Indiana",
+          "opponentSlug": "indiana",
+          "opponentUrl": "https://d1baseball.com/team/indiana/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/indiana.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Bloomington, Ind., Bart Kaufman Field",
+          "columns": {
+            "date": "Sat, Apr 18",
+            "loc": "@",
+            "opponent": "Indiana",
+            "results": null,
+            "win_prob": null,
+            "notes": "Bloomington, Ind., Bart Kaufman Field"
+          }
+        },
+        {
+          "scheduleId": "e60e92efbbf0413c8e2ed19377edacbf",
+          "dateLabel": "Sun, Apr 19",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260419",
+          "locationType": "@",
+          "opponentName": "Indiana",
+          "opponentSlug": "indiana",
+          "opponentUrl": "https://d1baseball.com/team/indiana/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/indiana.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Bloomington, Ind., Bart Kaufman Field",
+          "columns": {
+            "date": "Sun, Apr 19",
+            "loc": "@",
+            "opponent": "Indiana",
+            "results": null,
+            "win_prob": null,
+            "notes": "Bloomington, Ind., Bart Kaufman Field"
+          }
+        },
+        {
+          "scheduleId": "6cb7c1c3c73747b2a8607c1010a5c6be",
+          "dateLabel": "Fri, Apr 24",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260424",
+          "locationType": "vs",
+          "opponentName": "UT Arlington",
+          "opponentSlug": "utarl",
+          "opponentUrl": "https://d1baseball.com/team/utarl/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/texas-arlington.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Fri, Apr 24",
+            "loc": "vs",
+            "opponent": "UT Arlington",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "8a2d0ba542184a508fb31c840831fd1f",
+          "dateLabel": "Sat, Apr 25",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260425",
+          "locationType": "vs",
+          "opponentName": "UT Arlington",
+          "opponentSlug": "utarl",
+          "opponentUrl": "https://d1baseball.com/team/utarl/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/texas-arlington.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sat, Apr 25",
+            "loc": "vs",
+            "opponent": "UT Arlington",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "6c9a766a305c40f7af9f25b36b08df8d",
+          "dateLabel": "Sun, Apr 26",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260426",
+          "locationType": "vs",
+          "opponentName": "UT Arlington",
+          "opponentSlug": "utarl",
+          "opponentUrl": "https://d1baseball.com/team/utarl/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/texas-arlington.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sun, Apr 26",
+            "loc": "vs",
+            "opponent": "UT Arlington",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "5c8b64d3914d4c4d969f42288f4e6854",
+          "dateLabel": "Tue, Apr 28",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260428",
+          "locationType": "vs",
+          "opponentName": "Dallas Baptist",
+          "opponentSlug": "dallasbapt",
+          "opponentUrl": "https://d1baseball.com/team/dallasbapt/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/dallas-baptist.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Tue, Apr 28",
+            "loc": "vs",
+            "opponent": "Dallas Baptist",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "3b0a85cd10e14e3e800550434610a454",
+          "dateLabel": "Fri, May 1",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260501",
+          "locationType": "@",
+          "opponentName": "Sacramento State",
+          "opponentSlug": "sacstate",
+          "opponentUrl": "https://d1baseball.com/team/sacstate/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/sacramento-st.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Sacramento, Calif., John Smith Field",
+          "columns": {
+            "date": "Fri, May 1",
+            "loc": "@",
+            "opponent": "Sacramento State",
+            "results": null,
+            "win_prob": null,
+            "notes": "Sacramento, Calif., John Smith Field"
+          }
+        },
+        {
+          "scheduleId": "f44a9084b5614b34965c6fb5668f30f2",
+          "dateLabel": "Sat, May 2",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260502",
+          "locationType": "@",
+          "opponentName": "Sacramento State",
+          "opponentSlug": "sacstate",
+          "opponentUrl": "https://d1baseball.com/team/sacstate/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/sacramento-st.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Sacramento, Calif., John Smith Field",
+          "columns": {
+            "date": "Sat, May 2",
+            "loc": "@",
+            "opponent": "Sacramento State",
+            "results": null,
+            "win_prob": null,
+            "notes": "Sacramento, Calif., John Smith Field"
+          }
+        },
+        {
+          "scheduleId": "b1e9b34516d34a618041f1a0e338926d",
+          "dateLabel": "Sun, May 3",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260503",
+          "locationType": "@",
+          "opponentName": "Sacramento State",
+          "opponentSlug": "sacstate",
+          "opponentUrl": "https://d1baseball.com/team/sacstate/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/sacramento-st.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Sacramento, Calif., John Smith Field",
+          "columns": {
+            "date": "Sun, May 3",
+            "loc": "@",
+            "opponent": "Sacramento State",
+            "results": null,
+            "win_prob": null,
+            "notes": "Sacramento, Calif., John Smith Field"
+          }
+        },
+        {
+          "scheduleId": "f42381f710044b8b94ad6e60283c603f",
+          "dateLabel": "Tue, May 5",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260505",
+          "locationType": "vs",
+          "opponentName": "UT Rio Grande Valley",
+          "opponentSlug": "utrio",
+          "opponentUrl": "https://d1baseball.com/team/utrio/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/utrgv.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Tue, May 5",
+            "loc": "vs",
+            "opponent": "UT Rio Grande Valley",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "a665454a243241e08cb77b8917bca64c",
+          "dateLabel": "Fri, May 8",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260508",
+          "locationType": "vs",
+          "opponentName": "Utah Valley",
+          "opponentSlug": "utvalley",
+          "opponentUrl": "https://d1baseball.com/team/utvalley/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/utah-valley.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Fri, May 8",
+            "loc": "vs",
+            "opponent": "Utah Valley",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "8fd10536ef914220bbff51bb4b83f2ce",
+          "dateLabel": "Sat, May 9",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260509",
+          "locationType": "vs",
+          "opponentName": "Utah Valley",
+          "opponentSlug": "utvalley",
+          "opponentUrl": "https://d1baseball.com/team/utvalley/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/utah-valley.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sat, May 9",
+            "loc": "vs",
+            "opponent": "Utah Valley",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "54fed53bbd9c47cab8c94491e43f8745",
+          "dateLabel": "Sun, May 10",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260510",
+          "locationType": "vs",
+          "opponentName": "Utah Valley",
+          "opponentSlug": "utvalley",
+          "opponentUrl": "https://d1baseball.com/team/utvalley/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/utah-valley.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark",
+          "columns": {
+            "date": "Sun, May 10",
+            "loc": "vs",
+            "opponent": "Utah Valley",
+            "results": null,
+            "win_prob": null,
+            "notes": "Abilene, Texas, Crutcher Scott Field at Bullock Brothers Ballpark"
+          }
+        },
+        {
+          "scheduleId": "80c0567a312c4e19bc276628ca05e48a",
+          "dateLabel": "Thu, May 14",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260514",
+          "locationType": "@",
+          "opponentName": "Utah Tech",
+          "opponentSlug": "utah-tech",
+          "opponentUrl": "https://d1baseball.com/team/utah-tech/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/utah-tech.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "St. George, Utah, Bruce Hurst Field",
+          "columns": {
+            "date": "Thu, May 14",
+            "loc": "@",
+            "opponent": "Utah Tech",
+            "results": null,
+            "win_prob": null,
+            "notes": "St. George, Utah, Bruce Hurst Field"
+          }
+        },
+        {
+          "scheduleId": "bbbab8e15bc74c4a8b6211d062153e4f",
+          "dateLabel": "Fri, May 15",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260515",
+          "locationType": "@",
+          "opponentName": "Utah Tech",
+          "opponentSlug": "utah-tech",
+          "opponentUrl": "https://d1baseball.com/team/utah-tech/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/utah-tech.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "St. George, Utah, Bruce Hurst Field",
+          "columns": {
+            "date": "Fri, May 15",
+            "loc": "@",
+            "opponent": "Utah Tech",
+            "results": null,
+            "win_prob": null,
+            "notes": "St. George, Utah, Bruce Hurst Field"
+          }
+        },
+        {
+          "scheduleId": "a334b18d4b1a4269a615af188e9bb35d",
+          "dateLabel": "Sat, May 16",
+          "dateUrl": "https://d1baseball.com/scores/?date=20260516",
+          "locationType": "@",
+          "opponentName": "Utah Tech",
+          "opponentSlug": "utah-tech",
+          "opponentUrl": "https://d1baseball.com/team/utah-tech/",
+          "opponentLogoUrl": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/utah-tech.svg",
+          "resultText": null,
+          "resultUrl": null,
+          "outcome": "unknown",
+          "notes": "St. George, Utah, Bruce Hurst Field",
+          "columns": {
+            "date": "Sat, May 16",
+            "loc": "@",
+            "opponent": "Utah Tech",
+            "results": null,
+            "win_prob": null,
+            "notes": "St. George, Utah, Bruce Hurst Field"
+          }
+        }
+      ],
+      "statsTables": [],
+      "errors": []
+    }
+  ],
+  "errors": []
+}

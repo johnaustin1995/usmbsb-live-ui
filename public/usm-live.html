@@ -46,8 +46,11 @@
         <section class="panel center-panel">
           <div class="score-banner">
             <div class="team-block" id="away-block">
-              <p class="team-code" id="away-code">AWAY</p>
-              <p class="team-record" id="away-record"></p>
+              <img id="away-logo" class="team-logo-badge" alt="" hidden />
+              <div class="team-text">
+                <p class="team-code" id="away-code">AWAY</p>
+                <p class="team-record" id="away-record"></p>
+              </div>
             </div>
             <div class="team-score" id="away-score">0</div>
             <div class="game-state">
@@ -56,8 +59,11 @@
             </div>
             <div class="team-score" id="home-score">0</div>
             <div class="team-block" id="home-block">
-              <p class="team-code" id="home-code">HOME</p>
-              <p class="team-record" id="home-record"></p>
+              <img id="home-logo" class="team-logo-badge" alt="" hidden />
+              <div class="team-text">
+                <p class="team-code" id="home-code">HOME</p>
+                <p class="team-record" id="home-record"></p>
+              </div>
             </div>
           </div>
 
@@ -122,6 +128,7 @@
         </aside>
       </section>
     </main>
+    <script src="/branding.js" defer></script>
     <script src="/usm-live.js" defer></script>
   </body>
 </html>

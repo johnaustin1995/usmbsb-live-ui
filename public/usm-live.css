@@ -189,7 +189,25 @@ h1 {
 
 .team-block {
   display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.team-text {
+  display: flex;
   flex-direction: column;
+  min-width: 0;
+}
+
+.team-logo-badge {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 999px;
+  border: 1px solid #2c3d69;
+  background: #0b1430;
+  padding: 4px;
+  flex: 0 0 auto;
 }
 
 .team-code {
