@@ -174,18 +174,20 @@ function renderGameSelect(games, selectedGameId) {
 function renderScoreBanner(summary, selectedGame) {
   const awayTeam = summary?.visitorTeam || selectedGame?.awayTeam || "Away";
   const homeTeam = summary?.homeTeam || selectedGame?.homeTeam || "Home";
+  const awayTeamName = formatTeamDisplayName(awayTeam);
+  const homeTeamName = formatTeamDisplayName(homeTeam);
   const awayScore = formatScore(summary?.visitorScore);
   const homeScore = formatScore(summary?.homeScore);
 
-  elements.awayCode.textContent = abbreviateTeam(awayTeam);
-  elements.homeCode.textContent = abbreviateTeam(homeTeam);
-  elements.awayRecord.textContent = awayTeam;
-  elements.homeRecord.textContent = homeTeam;
+  elements.awayCode.textContent = awayTeamName;
+  elements.homeCode.textContent = homeTeamName;
+  elements.awayRecord.textContent = "";
+  elements.homeRecord.textContent = "";
   renderTeamLogo(elements.awayLogo, awayTeam);
   renderTeamLogo(elements.homeLogo, homeTeam);
   elements.awayScore.textContent = awayScore;
   elements.homeScore.textContent = homeScore;
-  elements.gameStatus.textContent = summary?.statusText || selectedGame?.statusText || "Pregame";
+  elements.gameStatus.textContent = buildInningIndicator(summary, selectedGame);
   elements.countStatus.textContent = buildCountLine(summary?.situation || null);
 }
 
@@ -484,6 +486,49 @@ function buildCountLine(situation) {
   return `${balls}-${strikes} | ${outs}`;
 }
 
+function buildInningIndicator(summary, selectedGame) {
+  const situation = summary?.situation || null;
+  const inningFromSituation = Number.isFinite(situation?.inning) ? Number(situation.inning) : null;
+  const halfFromSituation = normalizeHalf(situation?.half);
+  if (inningFromSituation !== null && halfFromSituation) {
+    return `${halfFromSituation === "top" ? "▲" : "▼"} ${inningFromSituation}`;
+  }
+
+  const statusText = String(summary?.statusText || selectedGame?.statusText || "Pregame");
+  const parsed = parseInningFromStatus(statusText);
+  if (parsed) {
+    return `${parsed.half === "top" ? "▲" : "▼"} ${parsed.inning}`;
+  }
+
+  return statusText;
+}
+
+function parseInningFromStatus(text) {
+  const match = String(text || "").match(/\b(top|bot|bottom)\b(?:\s+of)?(?:\s+the)?\s*(\d+)/i);
+  if (!match) {
+    return null;
+  }
+  const inning = Number.parseInt(match[2], 10);
+  if (!Number.isFinite(inning)) {
+    return null;
+  }
+  return {
+    half: /^top/i.test(match[1]) ? "top" : "bottom",
+    inning,
+  };
+}
+
+function normalizeHalf(value) {
+  const text = String(value || "").toLowerCase();
+  if (text === "top") {
+    return "top";
+  }
+  if (text === "bottom" || text === "bot") {
+    return "bottom";
+  }
+  return null;
+}
+
 function formatOuts(value) {
   if (!Number.isFinite(value)) {
     return "Outs ?";
@@ -523,12 +568,9 @@ function classifyPlay(text) {
   return "";
 }
 
-function abbreviateTeam(name) {
+function formatTeamDisplayName(name) {
   const clean = String(name || "").replace(/^#\d+\s+/, "").trim();
-  if (!clean) return "-";
-  const parts = clean.split(/\s+/).filter(Boolean);
-  if (parts.length === 1) return parts[0].slice(0, 3).toUpperCase();
-  return parts.slice(0, 3).map((part) => part[0]).join("").toUpperCase();
+  return clean || "-";
 }
 
 function prettifyNames(text) {
