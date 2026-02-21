@@ -1,0 +1,14 @@
+services:
+  usmbsb-web:
+    container_name: usmbsb-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8787:8787"
+    command: ["node", "dist/index.js"]
