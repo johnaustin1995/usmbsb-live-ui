@@ -197,7 +197,11 @@ function renderFeed(plays) {
 
   let previousHalfInning = null;
 
-  for (const play of ordered) {
+  for (let index = 0; index < ordered.length; index += 1) {
+    const play = ordered[index];
+    const olderPlay = index + 1 < ordered.length ? ordered[index + 1] : null;
+    const scoringFromScores = didPlayScore(play, olderPlay);
+
     const halfInningLabel = toHalfInningLabel(play);
     if (halfInningLabel && halfInningLabel !== previousHalfInning) {
       const divider = document.createElement("div");
@@ -216,7 +220,7 @@ function renderFeed(plays) {
 
     item.append(text);
 
-    const tag = classifyPlay(play.text || "");
+    const tag = classifyPlay(play.text || "", { scoringOverride: scoringFromScores });
     if (tag) {
       const chip = document.createElement("span");
       chip.className = `chip${tag.tone ? ` chip--${tag.tone}` : ""}`;
@@ -233,6 +237,35 @@ function toHalfInningLabel(play) {
     return null;
   }
   return `${play.half === "top" ? "top" : "bot"} ${play.inning}`;
+}
+
+function didPlayScore(currentPlay, olderPlay) {
+  if (!currentPlay || !olderPlay) {
+    return false;
+  }
+
+  const currentAway = toScoreNumber(currentPlay.awayScore);
+  const currentHome = toScoreNumber(currentPlay.homeScore);
+  const olderAway = toScoreNumber(olderPlay.awayScore);
+  const olderHome = toScoreNumber(olderPlay.homeScore);
+  if (currentAway === null || currentHome === null || olderAway === null || olderHome === null) {
+    return false;
+  }
+
+  return currentAway > olderAway || currentHome > olderHome;
+}
+
+function toScoreNumber(value) {
+  if (Number.isFinite(value)) {
+    return Number(value);
+  }
+  if (typeof value === "string") {
+    const parsed = Number.parseInt(value.trim(), 10);
+    if (Number.isFinite(parsed)) {
+      return parsed;
+    }
+  }
+  return null;
 }
 
 function buildInningIndicator(summary, selectedGame) {
@@ -536,9 +569,9 @@ function normalizeHalf(value) {
   return null;
 }
 
-function classifyPlay(text) {
+function classifyPlay(text, options = {}) {
   const lower = text.toLowerCase();
-  const scoring = isScoringPlay(lower);
+  const scoring = Boolean(options.scoringOverride) || isScoringPlay(lower);
   const reachesBase = isReachesBasePlay(lower);
   const out = isOutPlay(lower);
 
