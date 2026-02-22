@@ -40,15 +40,21 @@ body {
 }
 
 .obs-scoreboard {
-  border: 1px solid var(--panel-border);
-  border-radius: 18px;
-  background: linear-gradient(90deg, #0f1b37, #111c34 55%, #0f1b37);
+  border: 1px solid #181b25;
+  border-radius: 10px;
+  background: #030303;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 260px;
+}
+
+.score-top {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) 100px minmax(150px, 1fr) 100px minmax(220px, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto auto minmax(0, 1fr);
   align-items: center;
-  gap: 10px;
-  padding: 18px 20px;
-  min-height: 220px;
+  gap: 18px;
+  padding: 16px 18px 14px;
 }
 
 .team-side {
@@ -58,82 +64,123 @@ body {
   min-width: 0;
 }
 
+.team-side.away {
+  justify-content: flex-start;
+}
+
 .team-side.home {
   justify-content: flex-end;
 }
 
 .team-text {
   min-width: 0;
+  max-width: 170px;
 }
 
 .team-side.home .team-text {
+  order: 2;
   text-align: right;
+}
+
+.team-side.home .team-logo-badge {
+  order: 3;
+}
+
+.team-side.home .team-score {
+  order: 1;
 }
 
 .team-name {
   margin: 0;
-  font-size: 34px;
+  font-size: 20px;
   line-height: 1.12;
   font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #f0f4ff;
 }
 
 .team-logo-badge {
-  width: 64px;
-  height: 64px;
+  width: 74px;
+  height: 74px;
   object-fit: contain;
   object-position: center;
-  border: 1px solid #2c3d69;
-  background: #0b1430;
-  padding: 6px;
+  border: none;
+  background: transparent;
+  padding: 0;
 }
 
 .team-score {
   text-align: center;
   font-family: "Bebas Neue", sans-serif;
-  font-size: 96px;
+  font-size: 92px;
   line-height: 1;
   letter-spacing: 0.02em;
+  color: #f5f7ff;
 }
 
-.game-state {
+.state-cluster {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.count-outs {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+
+.count-line {
+  margin: 0;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: #f5f7ff;
+}
+
+.diamond-wrap {
+  display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
 }
 
 .base-diamond {
   position: relative;
-  width: 74px;
-  height: 52px;
-  margin: 0 0 10px;
+  width: 82px;
+  height: 58px;
+  margin: 0;
 }
 
 .base-marker {
   position: absolute;
-  width: 13px;
-  height: 13px;
+  width: 20px;
+  height: 20px;
   transform: rotate(45deg);
-  background: #1f315a;
-  border: 1px solid #4b6295;
-  border-radius: 2px;
+  background: transparent;
+  border: 2px solid #d9deec;
+  border-radius: 1px;
 }
 
 .base-second {
   top: 0;
   left: 50%;
-  margin-left: -6.5px;
+  margin-left: -10px;
 }
 
 .base-third {
-  left: 11px;
-  top: 24px;
+  left: 8px;
+  top: 28px;
 }
 
 .base-first {
-  right: 11px;
-  top: 24px;
+  right: 8px;
+  top: 28px;
 }
 
 .base-marker.is-occupied {
@@ -145,46 +192,81 @@ body {
 .game-status {
   margin: 0;
   display: inline-flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  gap: 9px;
+  gap: 8px;
   font-weight: 800;
   letter-spacing: 0.02em;
+  color: #f4f7ff;
 }
 
 .inning-arrow {
-  font-size: 13px;
+  font-size: 22px;
   line-height: 1;
   color: #c8d7ff;
+  margin-bottom: 8px;
 }
 
 .inning-number {
-  font-size: 30px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 82px;
   line-height: 1;
 }
 
 .outs-status {
-  margin: 8px 0 0;
+  margin: 0;
 }
 
 .outs-dots {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
 }
 
 .out-dot {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 999px;
-  background: #253a64;
-  border: 1px solid #4b6295;
+  background: transparent;
+  border: 2px solid #dde2ef;
 }
 
 .out-dot.is-filled {
   background: #f3c13f;
   border-color: #f3c13f;
   box-shadow: 0 0 8px rgba(243, 193, 63, 0.45);
+}
+
+.score-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #1a1a1a;
+}
+
+.pitcher-line,
+.batter-line {
+  margin: 0;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 7px 14px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: #f8fbff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pitcher-line {
+  background: #8a0014;
+}
+
+.batter-line {
+  background: #070707;
+  justify-content: flex-end;
 }
 
 .feed-panel {

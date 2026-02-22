@@ -17,7 +17,10 @@ const elements = {
   baseSecond: document.getElementById("base-second"),
   baseThird: document.getElementById("base-third"),
   gameStatus: document.getElementById("game-status"),
+  countLine: document.getElementById("count-line"),
   outsStatus: document.getElementById("outs-status"),
+  pitcherLine: document.getElementById("pitcher-line"),
+  batterLine: document.getElementById("batter-line"),
   playFeed: document.getElementById("play-feed"),
 };
 
@@ -55,8 +58,17 @@ async function fetchAndRender() {
     if (elements.gameStatus) {
       elements.gameStatus.textContent = "Feed Error";
     }
+    if (elements.countLine) {
+      elements.countLine.textContent = "--";
+    }
     if (elements.outsStatus) {
       elements.outsStatus.textContent = "";
+    }
+    if (elements.pitcherLine) {
+      elements.pitcherLine.textContent = "Pitcher -";
+    }
+    if (elements.batterLine) {
+      elements.batterLine.textContent = "Batter -";
     }
     if (elements.playFeed) {
       elements.playFeed.innerHTML = `<p class="empty">Load failed: ${message}</p>`;
@@ -105,6 +117,7 @@ function render(payload) {
 function renderScoreboard(summary, selectedGame) {
   const awayTeam = summary?.visitorTeam || selectedGame?.awayTeam || "Away";
   const homeTeam = summary?.homeTeam || selectedGame?.homeTeam || "Home";
+  const situation = summary?.situation || null;
 
   elements.awayName.textContent = formatTeamDisplayName(awayTeam);
   elements.homeName.textContent = formatTeamDisplayName(homeTeam);
@@ -114,9 +127,11 @@ function renderScoreboard(summary, selectedGame) {
   elements.awayScore.textContent = formatScore(summary?.visitorScore);
   elements.homeScore.textContent = formatScore(summary?.homeScore);
 
-  renderBaseDiamond(summary?.situation?.bases || null);
+  renderBaseDiamond(situation?.bases || null);
   renderInningIndicator(elements.gameStatus, summary, selectedGame);
-  renderOutsDots(elements.outsStatus, summary?.situation || null);
+  renderCountLine(elements.countLine, situation);
+  renderOutsDots(elements.outsStatus, situation);
+  renderMatchupStrip(situation);
 }
 
 function renderTeamLogo(logoEl, teamName) {
@@ -263,6 +278,28 @@ function renderOutsDots(target, situation) {
   target.append(wrap);
 }
 
+function renderCountLine(target, situation) {
+  if (!target) {
+    return;
+  }
+  const balls = Number.isFinite(situation?.count?.balls) ? String(situation.count.balls) : "-";
+  const strikes = Number.isFinite(situation?.count?.strikes) ? String(situation.count.strikes) : "-";
+  target.textContent = `${balls}-${strikes}`;
+}
+
+function renderMatchupStrip(situation) {
+  if (elements.pitcherLine) {
+    const pitcher = prettifyNames(situation?.pitcher?.name || "-").toUpperCase();
+    elements.pitcherLine.textContent = `PITCHER  ${pitcher}`;
+  }
+
+  if (elements.batterLine) {
+    const batter = prettifyNames(situation?.batter?.name || "-").toUpperCase();
+    const batterSummary = cleanSummary(situation?.batter?.summary);
+    elements.batterLine.textContent = batterSummary ? `${batter} (${batterSummary})` : `BATTER  ${batter}`;
+  }
+}
+
 function renderBaseDiamond(bases) {
   setBaseOccupied(elements.baseFirst, Boolean(bases?.first));
   setBaseOccupied(elements.baseSecond, Boolean(bases?.second));
@@ -347,4 +384,12 @@ function toTitle(value) {
 
 function formatScore(value) {
   return Number.isFinite(value) ? String(value) : "-";
+}
+
+function cleanSummary(value) {
+  const summary = String(value || "").trim();
+  if (!summary || summary === "-") {
+    return "";
+  }
+  return summary;
 }
