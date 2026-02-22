@@ -493,8 +493,9 @@ function setBaseOccupied(node, occupied) {
 
 function normalizeBaseOccupancy(bases) {
   const mask = parseMaskValue(bases?.mask);
-  const firstFromMask = mask !== null ? (mask & 1) === 1 : null;
-  const secondFromMask = mask !== null ? (mask & 2) === 2 : null;
+  // Match StatBroadcast's base icon bit order: bit 1 => 2B, bit 2 => 1B.
+  const firstFromMask = mask !== null ? (mask & 2) === 2 : null;
+  const secondFromMask = mask !== null ? (mask & 1) === 1 : null;
   const thirdFromMask = mask !== null ? (mask & 4) === 4 : null;
 
   return {

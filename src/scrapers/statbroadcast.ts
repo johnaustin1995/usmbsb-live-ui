@@ -441,8 +441,9 @@ function parseLiveSituation(
     },
     outs,
     bases: {
-      first: baseMask !== null ? (baseMask & 1) === 1 : false,
-      second: baseMask !== null ? (baseMask & 2) === 2 : false,
+      // StatBroadcast base icon uses bit 1 for 2B and bit 2 for 1B.
+      first: baseMask !== null ? (baseMask & 2) === 2 : false,
+      second: baseMask !== null ? (baseMask & 1) === 1 : false,
       third: baseMask !== null ? (baseMask & 4) === 4 : false,
       mask: baseMask,
     },
