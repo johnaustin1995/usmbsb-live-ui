@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Southern Miss Live Feed (OBS)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/usm-live-obs.css" />
+  </head>
+  <body>
+    <main class="obs-root">
+      <header class="obs-scoreboard">
+        <div class="team-side away">
+          <img id="away-logo" class="team-logo-badge" alt="" hidden />
+          <div class="team-text">
+            <p id="away-name" class="team-name">Away</p>
+          </div>
+        </div>
+        <div id="away-score" class="team-score">0</div>
+
+        <div class="game-state">
+          <p id="game-status" class="game-status">Pregame</p>
+          <p id="outs-status" class="outs-status"></p>
+          <p id="status-meta" class="status-meta">Waiting for live data...</p>
+        </div>
+
+        <div id="home-score" class="team-score">0</div>
+        <div class="team-side home">
+          <div class="team-text">
+            <p id="home-name" class="team-name">Home</p>
+          </div>
+          <img id="home-logo" class="team-logo-badge" alt="" hidden />
+        </div>
+      </header>
+
+      <section class="feed-panel">
+        <div class="feed-head">
+          <h1>Live Feed</h1>
+          <p id="feed-count">0 plays</p>
+        </div>
+        <div id="play-feed" class="feed-list"></div>
+      </section>
+    </main>
+
+    <script src="/branding.js" defer></script>
+    <script src="/usm-live-obs.js" defer></script>
+  </body>
+</html>
