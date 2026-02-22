@@ -445,9 +445,10 @@ function normalizePlayerLabel(value) {
 }
 
 function renderBaseDiamond(bases) {
-  setBaseOccupied(elements.baseFirst, Boolean(bases?.first));
-  setBaseOccupied(elements.baseSecond, Boolean(bases?.second));
-  setBaseOccupied(elements.baseThird, Boolean(bases?.third));
+  const occupied = normalizeBaseOccupancy(bases);
+  setBaseOccupied(elements.baseFirst, occupied.first);
+  setBaseOccupied(elements.baseSecond, occupied.second);
+  setBaseOccupied(elements.baseThird, occupied.third);
 }
 
 function setBaseOccupied(node, occupied) {
@@ -455,6 +456,58 @@ function setBaseOccupied(node, occupied) {
     return;
   }
   node.classList.toggle("is-occupied", occupied);
+}
+
+function normalizeBaseOccupancy(bases) {
+  const mask = parseMaskValue(bases?.mask);
+  const firstFromMask = mask !== null ? (mask & 1) === 1 : null;
+  const secondFromMask = mask !== null ? (mask & 2) === 2 : null;
+  const thirdFromMask = mask !== null ? (mask & 4) === 4 : null;
+
+  return {
+    first: firstFromMask ?? toBaseOccupied(bases?.first),
+    second: secondFromMask ?? toBaseOccupied(bases?.second),
+    third: thirdFromMask ?? toBaseOccupied(bases?.third),
+  };
+}
+
+function parseMaskValue(value) {
+  if (Number.isFinite(value)) {
+    return Math.max(0, Math.min(7, Math.trunc(Number(value))));
+  }
+  if (typeof value === "string") {
+    const parsed = Number.parseInt(value.trim(), 10);
+    if (Number.isFinite(parsed)) {
+      return Math.max(0, Math.min(7, parsed));
+    }
+  }
+  return null;
+}
+
+function toBaseOccupied(value) {
+  if (typeof value === "boolean") {
+    return value;
+  }
+  if (typeof value === "number") {
+    return Number.isFinite(value) && value > 0;
+  }
+  if (typeof value === "string") {
+    const clean = value.trim().toLowerCase();
+    if (clean.length === 0) {
+      return false;
+    }
+    if (["0", "false", "no", "off", "empty", "none", "-"].includes(clean)) {
+      return false;
+    }
+    if (["1", "true", "yes", "on", "occupied"].includes(clean)) {
+      return true;
+    }
+    return true;
+  }
+  if (value && typeof value === "object") {
+    return true;
+  }
+  return false;
 }
 
 function parseInningFromStatus(text) {
