@@ -209,15 +209,10 @@ function renderFeed(plays) {
     const item = document.createElement("article");
     item.className = "feed-item";
 
-    const meta = document.createElement("div");
-    meta.className = "meta";
-    meta.textContent = `${formatInning(play)} | ${formatScore(play.awayScore)}-${formatScore(play.homeScore)}`;
-
     const text = document.createElement("div");
     text.className = "text";
     text.textContent = prettifyNames(play.text || "");
 
-    item.append(meta);
     item.append(text);
 
     const tag = classifyPlay(play.text || "");
@@ -476,13 +471,6 @@ function normalizeHalf(value) {
     return "bottom";
   }
   return null;
-}
-
-function formatInning(play) {
-  if (!play || play.inning === null || !play.half) {
-    return "Inning ?";
-  }
-  return `${play.half === "top" ? "Top" : "Bot"} ${play.inning}`;
 }
 
 function classifyPlay(text) {
