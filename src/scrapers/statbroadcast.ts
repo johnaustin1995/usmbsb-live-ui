@@ -636,55 +636,61 @@ function parsePitchCountForPitcher(
     return null;
   }
 
-  const table = selectedCard.find("table").first();
-  if (table.length === 0) {
+  const tables = selectedCard.find("table").toArray();
+  if (tables.length === 0) {
     return null;
   }
 
-  const headerRows = table
-    .find("thead tr")
-    .toArray()
-    .map((row: Element) =>
-      $(row)
-        .find("th")
-        .map((_: number, node: Element) => cleanText($(node).text()).toUpperCase())
-        .get()
-    );
+  let fallbackPitchCount: number | null = null;
 
-  const bodyRows = table
-    .find("tbody tr")
-    .toArray()
-    .map((row: Element) =>
-      $(row)
-        .find("td")
-        .map((_: number, node: Element) => cleanText($(node).text()))
-        .get()
-    );
+  for (const tableNode of tables) {
+    const table = $(tableNode);
+    const headerRows = table
+      .find("thead tr")
+      .toArray()
+      .map((row: Element) =>
+        $(row)
+          .find("th")
+          .map((_: number, node: Element) => cleanText($(node).text()).toUpperCase())
+          .get()
+      );
 
-  if (headerRows.length === 0 || bodyRows.length === 0) {
-    return null;
-  }
+    const bodyRows = table
+      .find("tbody tr")
+      .toArray()
+      .map((row: Element) =>
+        $(row)
+          .find("td")
+          .map((_: number, node: Element) => cleanText($(node).text()))
+          .get()
+      );
 
-  const todayPitchCount = parsePitchCountFromHeaderRows(headerRows, bodyRows, true);
-  if (todayPitchCount !== null) {
-    return todayPitchCount;
-  }
+    if (headerRows.length === 0 || bodyRows.length === 0) {
+      continue;
+    }
 
-  const anyPitchCount = parsePitchCountFromHeaderRows(headerRows, bodyRows, false);
-  if (anyPitchCount !== null) {
-    return anyPitchCount;
-  }
+    const todayPitchCount = parsePitchCountFromHeaderRows(headerRows, bodyRows, true);
+    if (todayPitchCount !== null) {
+      return todayPitchCount;
+    }
 
-  // Backward-compatible fallback for simple single-header/single-row tables.
-  const flatHeaders = headerRows.flat();
-  for (const values of bodyRows) {
-    const parsed = parseColumnValue(flatHeaders, values, "PC");
-    if (parsed !== null) {
-      return parsed;
+    const anyPitchCount = parsePitchCountFromHeaderRows(headerRows, bodyRows, false);
+    if (anyPitchCount !== null && fallbackPitchCount === null) {
+      fallbackPitchCount = anyPitchCount;
+      continue;
+    }
+
+    // Backward-compatible fallback for simple single-header/single-row tables.
+    const flatHeaders = headerRows.flat();
+    for (const values of bodyRows) {
+      const parsed = parseColumnValue(flatHeaders, values, "PC");
+      if (parsed !== null && fallbackPitchCount === null) {
+        fallbackPitchCount = parsed;
+      }
     }
   }
 
-  return null;
+  return fallbackPitchCount;
 }
 
 function parsePitchCountFromHeaderRows(
