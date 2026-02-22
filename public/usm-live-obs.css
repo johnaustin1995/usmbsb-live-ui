@@ -174,9 +174,17 @@ body {
 
 .inning-number {
   font-family: "Inter", sans-serif;
-  font-size: 46px;
+  font-size: 82px;
   font-weight: 900;
   line-height: 1;
+}
+
+.inning-phase {
+  font-family: "Inter", sans-serif;
+  font-size: 41px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.02em;
 }
 
 .outs-status {

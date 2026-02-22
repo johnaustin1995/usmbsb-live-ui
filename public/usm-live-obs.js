@@ -286,11 +286,22 @@ function buildInningIndicator(summary, selectedGame) {
   }
 
   const statusText = String(summary?.statusText || selectedGame?.statusText || "Pregame");
+  const parsedMidEnd = parseMidEndFromStatus(statusText);
+  if (parsedMidEnd) {
+    return {
+      half: null,
+      inning: parsedMidEnd.inning,
+      phase: parsedMidEnd.phase,
+      text: null,
+    };
+  }
+
   const parsed = parseInningFromStatus(statusText);
   if (parsed) {
     return {
       half: parsed.half,
       inning: parsed.inning,
+      phase: null,
       text: null,
     };
   }
@@ -298,6 +309,7 @@ function buildInningIndicator(summary, selectedGame) {
   return {
     half: null,
     inning: null,
+    phase: null,
     text: statusText,
   };
 }
@@ -305,6 +317,19 @@ function buildInningIndicator(summary, selectedGame) {
 function renderInningIndicator(target, summary, selectedGame) {
   target.replaceChildren();
   const indicator = buildInningIndicator(summary, selectedGame);
+  if (indicator.phase && Number.isFinite(indicator.inning)) {
+    const phase = document.createElement("span");
+    phase.className = "inning-phase";
+    phase.textContent = indicator.phase;
+
+    const number = document.createElement("span");
+    number.className = "inning-number";
+    number.textContent = String(indicator.inning);
+
+    target.append(phase, number);
+    return;
+  }
+
   if (indicator.half && Number.isFinite(indicator.inning)) {
     const arrow = document.createElement("span");
     arrow.className = "inning-arrow";
@@ -680,6 +705,23 @@ function parseInningFromStatus(text) {
   }
   return {
     half: /^top/i.test(match[1]) ? "top" : "bottom",
+    inning,
+  };
+}
+
+function parseMidEndFromStatus(text) {
+  const match = String(text || "").match(/\b(mid|middle|end)\b(?:\s+of)?(?:\s+the)?\s*(\d+)/i);
+  if (!match) {
+    return null;
+  }
+
+  const inning = Number.parseInt(match[2], 10);
+  if (!Number.isFinite(inning)) {
+    return null;
+  }
+
+  return {
+    phase: /^end/i.test(match[1]) ? "END" : "MID",
     inning,
   };
 }
