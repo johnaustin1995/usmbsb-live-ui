@@ -661,7 +661,7 @@ function parseCurrentBatter($: ReturnType<typeof load>): {
         seasonAvg = parseColumnTextValue(headers, values, "AVG");
       }
 
-      if (isSeasonRow || headers.includes("RBI") || headers.includes("HR")) {
+      if (isSeasonRow) {
         if (seasonRbis === null) {
           seasonRbis = parseColumnValue(headers, values, "RBI");
         }
