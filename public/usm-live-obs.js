@@ -13,6 +13,9 @@ const elements = {
   homeLogo: document.getElementById("home-logo"),
   awayScore: document.getElementById("away-score"),
   homeScore: document.getElementById("home-score"),
+  baseFirst: document.getElementById("base-first"),
+  baseSecond: document.getElementById("base-second"),
+  baseThird: document.getElementById("base-third"),
   gameStatus: document.getElementById("game-status"),
   outsStatus: document.getElementById("outs-status"),
   playFeed: document.getElementById("play-feed"),
@@ -49,7 +52,15 @@ async function fetchAndRender() {
     render(payload);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    elements.statusMeta.textContent = `Load failed: ${message}`;
+    if (elements.gameStatus) {
+      elements.gameStatus.textContent = "Feed Error";
+    }
+    if (elements.outsStatus) {
+      elements.outsStatus.textContent = "";
+    }
+    if (elements.playFeed) {
+      elements.playFeed.innerHTML = `<p class="empty">Load failed: ${message}</p>`;
+    }
   }
 }
 
@@ -103,6 +114,7 @@ function renderScoreboard(summary, selectedGame) {
   elements.awayScore.textContent = formatScore(summary?.visitorScore);
   elements.homeScore.textContent = formatScore(summary?.homeScore);
 
+  renderBaseDiamond(summary?.situation?.bases || null);
   renderInningIndicator(elements.gameStatus, summary, selectedGame);
   renderOutsDots(elements.outsStatus, summary?.situation || null);
 }
@@ -249,6 +261,19 @@ function renderOutsDots(target, situation) {
   }
 
   target.append(wrap);
+}
+
+function renderBaseDiamond(bases) {
+  setBaseOccupied(elements.baseFirst, Boolean(bases?.first));
+  setBaseOccupied(elements.baseSecond, Boolean(bases?.second));
+  setBaseOccupied(elements.baseThird, Boolean(bases?.third));
+}
+
+function setBaseOccupied(node, occupied) {
+  if (!node) {
+    return;
+  }
+  node.classList.toggle("is-occupied", occupied);
 }
 
 function parseInningFromStatus(text) {

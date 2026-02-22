@@ -96,7 +96,50 @@ body {
 }
 
 .game-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+}
+
+.base-diamond {
+  position: relative;
+  width: 74px;
+  height: 52px;
+  margin: 0 0 10px;
+}
+
+.base-marker {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  transform: rotate(45deg);
+  background: #1f315a;
+  border: 1px solid #4b6295;
+  border-radius: 2px;
+}
+
+.base-second {
+  top: 0;
+  left: 50%;
+  margin-left: -6.5px;
+}
+
+.base-third {
+  left: 11px;
+  top: 24px;
+}
+
+.base-first {
+  right: 11px;
+  top: 24px;
+}
+
+.base-marker.is-occupied {
+  background: #f3c13f;
+  border-color: #f3c13f;
+  box-shadow: 0 0 8px rgba(243, 193, 63, 0.45);
 }
 
 .game-status {
