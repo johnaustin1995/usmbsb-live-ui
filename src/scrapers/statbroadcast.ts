@@ -572,6 +572,9 @@ function parseCurrentBatter($: ReturnType<typeof load>): {
   ab: number | null;
   hits: number | null;
   summary: string | null;
+  seasonAvg: string | null;
+  seasonHomeRuns: number | null;
+  seasonRbis: number | null;
 } {
   const atBatCard = $(".card")
     .filter((_: number, node: Element) =>
@@ -585,25 +588,90 @@ function parseCurrentBatter($: ReturnType<typeof load>): {
       ab: null,
       hits: null,
       summary: null,
+      seasonAvg: null,
+      seasonHomeRuns: null,
+      seasonRbis: null,
     };
   }
 
   const title = cleanText(atBatCard.find(".card-header").first().text());
   const name = parseNameFromAtBatTitle(title);
 
-  const headers = atBatCard
-    .find("thead th")
-    .map((_, node) => cleanText($(node).text()).toUpperCase())
-    .get();
-  const values = atBatCard
-    .find("tbody tr")
-    .first()
-    .find("td")
-    .map((_, node) => cleanText($(node).text()))
-    .get();
+  const tables = atBatCard.find("table").toArray();
+  let ab: number | null = null;
+  let hits: number | null = null;
+  let seasonAvg: string | null = null;
+  let seasonHomeRuns: number | null = null;
+  let seasonRbis: number | null = null;
 
-  const ab = parseColumnValue(headers, values, "AB");
-  const hits = parseColumnValue(headers, values, "H");
+  for (const tableNode of tables) {
+    const table = $(tableNode);
+    const headerRows = table
+      .find("thead tr")
+      .toArray()
+      .map((row: Element) =>
+        $(row)
+          .find("th")
+          .map((_: number, node: Element) => cleanText($(node).text()).toUpperCase())
+          .get()
+      );
+
+    const bodyRows = table
+      .find("tbody tr")
+      .toArray()
+      .map((row: Element) =>
+        $(row)
+          .find("td")
+          .map((_: number, node: Element) => cleanText($(node).text()))
+          .get()
+      );
+
+    if (headerRows.length === 0 || bodyRows.length === 0) {
+      continue;
+    }
+
+    for (let index = 0; index < headerRows.length; index += 1) {
+      const headers = headerRows[index] ?? [];
+      if (headers.length === 0) {
+        continue;
+      }
+
+      const values = bodyRows[Math.min(index, bodyRows.length - 1)] ?? [];
+      if (values.length === 0) {
+        continue;
+      }
+
+      const isTodayRow = headers.includes("TODAY");
+      const isSeasonRow = headers.includes("SEASON");
+
+      if (ab === null || hits === null) {
+        if (isTodayRow || (headers.includes("AB") && headers.includes("H"))) {
+          const parsedAb = parseColumnValue(headers, values, "AB");
+          const parsedHits = parseColumnValue(headers, values, "H");
+          if (parsedAb !== null && ab === null) {
+            ab = parsedAb;
+          }
+          if (parsedHits !== null && hits === null) {
+            hits = parsedHits;
+          }
+        }
+      }
+
+      if (seasonAvg === null && headers.includes("AVG")) {
+        seasonAvg = parseColumnTextValue(headers, values, "AVG");
+      }
+
+      if (isSeasonRow || headers.includes("RBI") || headers.includes("HR")) {
+        if (seasonRbis === null) {
+          seasonRbis = parseColumnValue(headers, values, "RBI");
+        }
+        if (seasonHomeRuns === null) {
+          seasonHomeRuns = parseColumnValue(headers, values, "HR");
+        }
+      }
+    }
+  }
+
   const summary =
     ab !== null && hits !== null
       ? `${hits}-${ab}`
@@ -614,6 +682,9 @@ function parseCurrentBatter($: ReturnType<typeof load>): {
     ab,
     hits,
     summary,
+    seasonAvg,
+    seasonHomeRuns,
+    seasonRbis,
   };
 }
 
@@ -791,6 +862,21 @@ function parseColumnValue(headers: string[], values: string[], key: string): num
 
   const aligned = alignCellsToHeaders(headers, values);
   return parseInteger(String(aligned[index] ?? ""));
+}
+
+function parseColumnTextValue(headers: string[], values: string[], key: string): string | null {
+  if (headers.length === 0 || values.length === 0) {
+    return null;
+  }
+
+  const index = headers.findIndex((header) => header === key);
+  if (index === -1) {
+    return null;
+  }
+
+  const aligned = alignCellsToHeaders(headers, values);
+  const value = cleanText(String(aligned[index] ?? ""));
+  return value.length > 0 ? value : null;
 }
 
 function cleanPlayerName(value: string): string | null {

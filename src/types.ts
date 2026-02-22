@@ -144,6 +144,9 @@ export interface LiveBatter {
   ab: number | null;
   hits: number | null;
   summary: string | null;
+  seasonAvg: string | null;
+  seasonHomeRuns: number | null;
+  seasonRbis: number | null;
 }
 
 export interface LivePitcher {

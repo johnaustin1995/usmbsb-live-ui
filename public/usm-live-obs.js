@@ -100,7 +100,7 @@ async function fetchAndRender() {
       elements.pitcherLineText.textContent = "--  P --";
     }
     if (elements.batterLineText) {
-      elements.batterLineText.textContent = "BATTER - -";
+      elements.batterLineText.textContent = "--\u00A0\u00A0\u00A0---, --HR, --RBIs";
     }
     queueSyncMatchupFontSize();
     if (elements.playFeed) {
@@ -363,10 +363,9 @@ function renderAtBatCount(target, situation) {
 }
 
 function renderMatchupStrip(situation, inningHalf) {
-  const batter = normalizePlayerLabel(situation?.batter?.name);
+  const batterLine = formatBatterDisplay(situation?.batter);
   const pitcherLine = formatPitcherDisplay(situation?.pitcher?.name, situation?.pitcher?.pitchCount);
   const half = normalizeHalf(inningHalf);
-  const batterLine = `BATTER - ${batter}`;
 
   // Left strip is always the away team. Right strip is always the home team.
   let awayText = pitcherLine;
@@ -518,6 +517,14 @@ function formatPitcherDisplay(name, pitchCount) {
   return `${lastName}\u00A0\u00A0\u00A0P ${countLabel}`;
 }
 
+function formatBatterDisplay(batter) {
+  const lastName = normalizePitcherLastName(batter?.name);
+  const avg = normalizeAverageLabel(batter?.seasonAvg);
+  const hr = Number.isFinite(batter?.seasonHomeRuns) ? String(Math.max(0, Math.trunc(Number(batter.seasonHomeRuns)))) : "--";
+  const rbis = Number.isFinite(batter?.seasonRbis) ? String(Math.max(0, Math.trunc(Number(batter.seasonRbis)))) : "--";
+  return `${lastName}\u00A0\u00A0\u00A0${avg}, ${hr}HR, ${rbis}RBIs`;
+}
+
 function normalizePitcherLastName(value) {
   const raw = String(value || "").trim();
   if (!raw) {
@@ -537,6 +544,28 @@ function normalizePitcherLastName(value) {
 
   const tokens = pretty.split(/\s+/).filter(Boolean);
   return tokens.length > 0 ? toTitle(tokens[tokens.length - 1]) : "--";
+}
+
+function normalizeAverageLabel(value) {
+  const text = String(value ?? "").trim();
+  if (!text) {
+    return "---";
+  }
+
+  if (/^\.\d{3,}$/u.test(text)) {
+    return text.slice(0, 4);
+  }
+
+  if (/^\d\.\d{3,}$/u.test(text)) {
+    return text.slice(-4);
+  }
+
+  if (/^\d+$/u.test(text)) {
+    const padded = text.padStart(3, "0").slice(-3);
+    return `.${padded}`;
+  }
+
+  return text;
 }
 
 function renderBaseDiamond(bases) {
