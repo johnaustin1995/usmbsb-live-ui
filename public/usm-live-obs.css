@@ -72,34 +72,12 @@ body {
   justify-content: flex-end;
 }
 
-.team-text {
-  min-width: 0;
-  max-width: 170px;
-}
-
-.team-side.home .team-text {
-  order: 2;
-  text-align: right;
-}
-
 .team-side.home .team-logo-badge {
-  order: 3;
+  order: 2;
 }
 
 .team-side.home .team-score {
   order: 1;
-}
-
-.team-name {
-  margin: 0;
-  font-size: 20px;
-  line-height: 1.12;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #f0f4ff;
 }
 
 .team-logo-badge {
@@ -123,31 +101,16 @@ body {
 
 .state-cluster {
   display: flex;
-  align-items: flex-end;
-  gap: 12px;
-}
-
-.count-outs {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-  margin-bottom: 6px;
-}
-
-.count-line {
-  margin: 0;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 48px;
-  line-height: 1;
-  letter-spacing: 0.03em;
-  color: #f5f7ff;
+  align-items: center;
+  justify-content: center;
 }
 
 .diamond-wrap {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 }
 
 .base-diamond {
@@ -192,7 +155,7 @@ body {
 .game-status {
   margin: 0;
   display: inline-flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   gap: 8px;
   font-weight: 800;
@@ -204,7 +167,6 @@ body {
   font-size: 22px;
   line-height: 1;
   color: #c8d7ff;
-  margin-bottom: 8px;
 }
 
 .inning-number {

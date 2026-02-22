@@ -7,8 +7,6 @@ const state = {
 };
 
 const elements = {
-  awayName: document.getElementById("away-name"),
-  homeName: document.getElementById("home-name"),
   awayLogo: document.getElementById("away-logo"),
   homeLogo: document.getElementById("home-logo"),
   awayScore: document.getElementById("away-score"),
@@ -17,7 +15,6 @@ const elements = {
   baseSecond: document.getElementById("base-second"),
   baseThird: document.getElementById("base-third"),
   gameStatus: document.getElementById("game-status"),
-  countLine: document.getElementById("count-line"),
   outsStatus: document.getElementById("outs-status"),
   pitcherLine: document.getElementById("pitcher-line"),
   batterLine: document.getElementById("batter-line"),
@@ -58,17 +55,14 @@ async function fetchAndRender() {
     if (elements.gameStatus) {
       elements.gameStatus.textContent = "Feed Error";
     }
-    if (elements.countLine) {
-      elements.countLine.textContent = "--";
-    }
     if (elements.outsStatus) {
       elements.outsStatus.textContent = "";
     }
     if (elements.pitcherLine) {
-      elements.pitcherLine.textContent = "Pitcher -";
+      elements.pitcherLine.textContent = "PITCHER - -";
     }
     if (elements.batterLine) {
-      elements.batterLine.textContent = "Batter -";
+      elements.batterLine.textContent = "BATTER - -";
     }
     if (elements.playFeed) {
       elements.playFeed.innerHTML = `<p class="empty">Load failed: ${message}</p>`;
@@ -119,8 +113,6 @@ function renderScoreboard(summary, selectedGame) {
   const homeTeam = summary?.homeTeam || selectedGame?.homeTeam || "Home";
   const situation = summary?.situation || null;
 
-  elements.awayName.textContent = formatTeamDisplayName(awayTeam);
-  elements.homeName.textContent = formatTeamDisplayName(homeTeam);
   renderTeamLogo(elements.awayLogo, awayTeam);
   renderTeamLogo(elements.homeLogo, homeTeam);
 
@@ -129,9 +121,9 @@ function renderScoreboard(summary, selectedGame) {
 
   renderBaseDiamond(situation?.bases || null);
   renderInningIndicator(elements.gameStatus, summary, selectedGame);
-  renderCountLine(elements.countLine, situation);
   renderOutsDots(elements.outsStatus, situation);
   renderMatchupStrip(situation);
+  applyStripBranding(awayTeam, homeTeam);
 }
 
 function renderTeamLogo(logoEl, teamName) {
@@ -278,26 +270,63 @@ function renderOutsDots(target, situation) {
   target.append(wrap);
 }
 
-function renderCountLine(target, situation) {
-  if (!target) {
-    return;
-  }
-  const balls = Number.isFinite(situation?.count?.balls) ? String(situation.count.balls) : "-";
-  const strikes = Number.isFinite(situation?.count?.strikes) ? String(situation.count.strikes) : "-";
-  target.textContent = `${balls}-${strikes}`;
-}
-
 function renderMatchupStrip(situation) {
   if (elements.pitcherLine) {
-    const pitcher = prettifyNames(situation?.pitcher?.name || "-").toUpperCase();
-    elements.pitcherLine.textContent = `PITCHER  ${pitcher}`;
+    const pitcher = normalizePlayerLabel(situation?.pitcher?.name);
+    elements.pitcherLine.textContent = `PITCHER - ${pitcher}`;
   }
 
   if (elements.batterLine) {
-    const batter = prettifyNames(situation?.batter?.name || "-").toUpperCase();
-    const batterSummary = cleanSummary(situation?.batter?.summary);
-    elements.batterLine.textContent = batterSummary ? `${batter} (${batterSummary})` : `BATTER  ${batter}`;
+    const batter = normalizePlayerLabel(situation?.batter?.name);
+    elements.batterLine.textContent = `BATTER - ${batter}`;
   }
+}
+
+function applyStripBranding(awayTeam, homeTeam) {
+  const away = getTeamPrimaryColor(awayTeam) || "#8a0014";
+  const home = getTeamPrimaryColor(homeTeam) || "#070707";
+
+  applyStripColors(elements.pitcherLine, away);
+  applyStripColors(elements.batterLine, home);
+}
+
+function getTeamPrimaryColor(teamName) {
+  if (!brandingApi || typeof brandingApi.lookup !== "function") {
+    return null;
+  }
+  const branding = brandingApi.lookup(teamName);
+  const safeColor = brandingApi.safeColor;
+  if (typeof safeColor !== "function") {
+    return null;
+  }
+
+  return safeColor(branding?.colors?.primary) || safeColor(branding?.colors?.espnPrimary) || null;
+}
+
+function applyStripColors(node, background) {
+  if (!node) {
+    return;
+  }
+  node.style.backgroundColor = background;
+  node.style.color = chooseReadableTextColor(background);
+}
+
+function chooseReadableTextColor(hexColor) {
+  const clean = String(hexColor || "").replace(/^#/u, "");
+  if (!/^[0-9a-fA-F]{6}$/u.test(clean)) {
+    return "#F8FBFF";
+  }
+
+  const red = Number.parseInt(clean.slice(0, 2), 16);
+  const green = Number.parseInt(clean.slice(2, 4), 16);
+  const blue = Number.parseInt(clean.slice(4, 6), 16);
+  const luminance = 0.299 * red + 0.587 * green + 0.114 * blue;
+  return luminance > 150 ? "#0B0E14" : "#F8FBFF";
+}
+
+function normalizePlayerLabel(value) {
+  const text = prettifyNames(value || "").trim().toUpperCase();
+  return text.length > 0 ? text : "-";
 }
 
 function renderBaseDiamond(bases) {
@@ -360,11 +389,6 @@ function classifyPlay(text) {
   return "";
 }
 
-function formatTeamDisplayName(name) {
-  const clean = String(name || "").replace(/^#\d+\s+/, "").trim();
-  return clean || "-";
-}
-
 function prettifyNames(text) {
   if (!text) return "";
   return text
@@ -384,12 +408,4 @@ function toTitle(value) {
 
 function formatScore(value) {
   return Number.isFinite(value) ? String(value) : "-";
-}
-
-function cleanSummary(value) {
-  const summary = String(value || "").trim();
-  if (!summary || summary === "-") {
-    return "";
-  }
-  return summary;
 }
