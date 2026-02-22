@@ -117,22 +117,36 @@ body {
 }
 
 .base-diamond {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-width: 94px;
-  height: 20px;
+  position: relative;
+  width: 90px;
+  height: 62px;
   margin: 0;
 }
 
 .base-marker {
+  position: absolute;
   width: 20px;
   height: 20px;
   transform: rotate(45deg);
   background: transparent;
   border: 2px solid #d9deec;
   border-radius: 1px;
+}
+
+.base-second {
+  top: 0;
+  left: 50%;
+  margin-left: -10px;
+}
+
+.base-third {
+  left: 8px;
+  top: 30px;
+}
+
+.base-first {
+  right: 8px;
+  top: 30px;
 }
 
 .base-marker.is-occupied {
