@@ -100,7 +100,7 @@ async function fetchAndRender() {
       elements.pitcherLineText.textContent = "--  P --";
     }
     if (elements.batterLineText) {
-      elements.batterLineText.textContent = "--\u00A0\u00A0\u00A0---, --HR, --RBIs";
+      elements.batterLineText.textContent = "--\u00A0\u00A0\u00A0---, -- HR, -- RBI";
     }
     queueSyncMatchupFontSize();
     if (elements.playFeed) {
@@ -522,7 +522,7 @@ function formatBatterDisplay(batter) {
   const avg = normalizeAverageLabel(batter?.seasonAvg);
   const hr = Number.isFinite(batter?.seasonHomeRuns) ? String(Math.max(0, Math.trunc(Number(batter.seasonHomeRuns)))) : "--";
   const rbis = Number.isFinite(batter?.seasonRbis) ? String(Math.max(0, Math.trunc(Number(batter.seasonRbis)))) : "--";
-  return `${lastName}\u00A0\u00A0\u00A0${avg}, ${hr}HR, ${rbis}RBIs`;
+  return `${lastName}\u00A0\u00A0\u00A0${avg}, ${hr} HR, ${rbis} RBI`;
 }
 
 function normalizePitcherLastName(value) {
