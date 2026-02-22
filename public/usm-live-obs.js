@@ -493,16 +493,25 @@ function setBaseOccupied(node, occupied) {
 
 function normalizeBaseOccupancy(bases) {
   const mask = parseMaskValue(bases?.mask);
-  // Match StatBroadcast's base icon bit order: bit 1 => 2B, bit 2 => 1B.
-  const firstFromMask = mask !== null ? (mask & 2) === 2 : null;
-  const secondFromMask = mask !== null ? (mask & 1) === 1 : null;
+  const firstFromMask = mask !== null ? (mask & 1) === 1 : null;
+  const secondFromMask = mask !== null ? (mask & 2) === 2 : null;
   const thirdFromMask = mask !== null ? (mask & 4) === 4 : null;
+  const firstExplicit = readExplicitBaseOccupancy(bases?.first);
+  const secondExplicit = readExplicitBaseOccupancy(bases?.second);
+  const thirdExplicit = readExplicitBaseOccupancy(bases?.third);
 
   return {
-    first: firstFromMask ?? toBaseOccupied(bases?.first),
-    second: secondFromMask ?? toBaseOccupied(bases?.second),
-    third: thirdFromMask ?? toBaseOccupied(bases?.third),
+    first: firstExplicit ?? firstFromMask ?? toBaseOccupied(bases?.first),
+    second: secondExplicit ?? secondFromMask ?? toBaseOccupied(bases?.second),
+    third: thirdExplicit ?? thirdFromMask ?? toBaseOccupied(bases?.third),
   };
+}
+
+function readExplicitBaseOccupancy(value) {
+  if (typeof value === "boolean") {
+    return value;
+  }
+  return null;
 }
 
 function parseMaskValue(value) {
