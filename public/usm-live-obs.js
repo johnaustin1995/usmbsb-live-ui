@@ -220,7 +220,7 @@ function renderFeed(plays) {
 
     item.append(text);
 
-    const tag = classifyPlay(play.text || "", { scoringOverride: scoringFromScores });
+    const tag = classifyPlay(play, { scoringOverride: scoringFromScores });
     if (tag) {
       const chip = document.createElement("span");
       chip.className = `chip${tag.tone ? ` chip--${tag.tone}` : ""}`;
@@ -569,30 +569,40 @@ function normalizeHalf(value) {
   return null;
 }
 
-function classifyPlay(text, options = {}) {
+function classifyPlay(play, options = {}) {
+  const text = String(play?.text || "");
+  const scoringDecision = String(play?.scoringDecision || "");
   const lower = text.toLowerCase();
-  const scoring = Boolean(options.scoringOverride) || isScoringPlay(lower);
+  const scoring = Boolean(options.scoringOverride) || isScoringPlay(lower, scoringDecision);
   const reachesBase = isReachesBasePlay(lower);
   const out = isOutPlay(lower);
 
   if (lower.includes("home run") || lower.includes("homered")) return { label: "Home Run", tone: "scoring" };
-  if (lower.includes("doubled")) return { label: "Double", tone: scoring ? "scoring" : "onbase" };
-  if (lower.includes("tripled")) return { label: "Triple", tone: scoring ? "scoring" : "onbase" };
-  if (lower.includes("singled")) return { label: "Single", tone: scoring ? "scoring" : "onbase" };
-  if (lower.includes("walked") || lower.includes("intentional walk")) return { label: "Walk", tone: "onbase" };
-  if (lower.includes("hit by pitch") || /\bhbp\b/u.test(lower)) return { label: "HBP", tone: "onbase" };
-  if (lower.includes("struck out") || lower.includes("strikeout")) return { label: "Strikeout", tone: "out" };
+  if (lower.includes("doubled")) return { label: "Double", tone: toneWithScoring("onbase", scoring) };
+  if (lower.includes("tripled")) return { label: "Triple", tone: toneWithScoring("onbase", scoring) };
+  if (lower.includes("singled")) return { label: "Single", tone: toneWithScoring("onbase", scoring) };
+  if (lower.includes("walked") || lower.includes("intentional walk")) return { label: "Walk", tone: toneWithScoring("onbase", scoring) };
+  if (lower.includes("hit by pitch") || /\bhbp\b/u.test(lower)) return { label: "HBP", tone: toneWithScoring("onbase", scoring) };
+  if (lower.includes("struck out") || lower.includes("strikeout")) return { label: "Strikeout", tone: toneWithScoring("out", scoring) };
   if (lower.includes("pinch hit")) return { label: "Pinch Hit", tone: scoring ? "scoring" : null };
   if (lower.includes("to p for")) return { label: "Pitching Change", tone: null };
-  if (lower.includes("stole") || lower.includes("stolen base")) return { label: "Stolen Base", tone: "onbase" };
+  if (lower.includes("stole") || lower.includes("stolen base")) return { label: "Stolen Base", tone: toneWithScoring("onbase", scoring) };
   if (scoring) return { label: "Scoring Play", tone: "scoring" };
   if (reachesBase) return { label: "On Base", tone: "onbase" };
   if (out) return { label: "Out", tone: "out" };
   return null;
 }
 
-function isScoringPlay(lower) {
-  return /\bscor(?:ed|es|ing)\b|home run|homered|grand slam|walk-off/u.test(lower);
+function toneWithScoring(baseTone, scoring) {
+  return scoring ? "scoring" : baseTone;
+}
+
+function isScoringPlay(lowerText, scoringDecisionText) {
+  const decision = String(scoringDecisionText || "").toLowerCase();
+  return (
+    /\bscor(?:ed|es|ing)\b|home run|homered|grand slam|walk-off|\brbi\b|\b\d+\s*rbi\b/u.test(lowerText) ||
+    /\brbi\b|\b\d+\s*rbi\b/u.test(decision)
+  );
 }
 
 function isReachesBasePlay(lower) {
