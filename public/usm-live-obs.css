@@ -53,9 +53,9 @@ body {
 
 .score-top {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto auto auto minmax(0, 1fr);
   align-items: center;
-  gap: 18px;
+  gap: 14px;
   padding: 28px 20px 24px;
 }
 
@@ -181,6 +181,19 @@ body {
 
 .outs-status {
   margin: 0;
+}
+
+.atbat-count {
+  margin: 0;
+  min-width: 92px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 46px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #f4f7ff;
+  font-variant-numeric: tabular-nums;
 }
 
 .outs-dots {

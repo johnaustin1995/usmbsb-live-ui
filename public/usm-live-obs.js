@@ -21,6 +21,7 @@ const elements = {
   baseThird: document.getElementById("base-third"),
   gameStatus: document.getElementById("game-status"),
   outsStatus: document.getElementById("outs-status"),
+  atbatCount: document.getElementById("atbat-count"),
   pitcherLine: document.getElementById("pitcher-line"),
   pitcherLineText: document.getElementById("pitcher-line-text"),
   batterLine: document.getElementById("batter-line"),
@@ -92,6 +93,9 @@ async function fetchAndRender() {
     if (elements.outsStatus) {
       elements.outsStatus.textContent = "";
     }
+    if (elements.atbatCount) {
+      elements.atbatCount.textContent = "-";
+    }
     if (elements.pitcherLineText) {
       elements.pitcherLineText.textContent = "PITCHER - -";
     }
@@ -158,6 +162,7 @@ function renderScoreboard(summary, selectedGame) {
   renderBaseDiamond(situation?.bases || null);
   renderInningIndicator(elements.gameStatus, summary, selectedGame);
   renderOutsDots(elements.outsStatus, situation);
+  renderAtBatCount(elements.atbatCount, situation);
   renderMatchupStrip(situation, inningIndicator.half);
   applyStripBranding(awayTeam, homeTeam);
 }
@@ -332,6 +337,29 @@ function renderOutsDots(target, situation) {
   }
 
   target.append(wrap);
+}
+
+function renderAtBatCount(target, situation) {
+  if (!target) {
+    return;
+  }
+
+  const ballsRaw = Number.isFinite(situation?.count?.balls) ? Math.trunc(Number(situation.count.balls)) : null;
+  const strikesRaw = Number.isFinite(situation?.count?.strikes)
+    ? Math.trunc(Number(situation.count.strikes))
+    : null;
+
+  if (ballsRaw === null && strikesRaw === null) {
+    target.textContent = "-";
+    target.setAttribute("aria-label", "At-bat count unavailable");
+    return;
+  }
+
+  const balls = ballsRaw === null ? "-" : String(Math.max(0, Math.min(3, ballsRaw)));
+  const strikes = strikesRaw === null ? "-" : String(Math.max(0, Math.min(2, strikesRaw)));
+  const value = `${balls}-${strikes}`;
+  target.textContent = value;
+  target.setAttribute("aria-label", `At-bat count ${value}`);
 }
 
 function renderMatchupStrip(situation, inningHalf) {
