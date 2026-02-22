@@ -34,6 +34,7 @@ async function init() {
   const params = new URLSearchParams(window.location.search);
   const idParam = Number.parseInt(params.get("id") || "", 10);
   state.selectedGameId = Number.isFinite(idParam) ? idParam : null;
+  bootstrapStripTextNodes();
 
   await loadBranding();
   await fetchAndRender();
@@ -44,6 +45,27 @@ async function init() {
   }
 
   state.timer = setInterval(fetchAndRender, REFRESH_INTERVAL_MS);
+}
+
+function bootstrapStripTextNodes() {
+  elements.pitcherLineText = ensureStripTextNode(elements.pitcherLine, elements.pitcherLineText, "pitcher-line-text");
+  elements.batterLineText = ensureStripTextNode(elements.batterLine, elements.batterLineText, "batter-line-text");
+}
+
+function ensureStripTextNode(container, textNode, id) {
+  if (textNode) {
+    return textNode;
+  }
+  if (!container) {
+    return null;
+  }
+
+  const span = document.createElement("span");
+  span.id = id;
+  span.className = "strip-line-text";
+  span.textContent = (container.textContent || "").trim() || "-";
+  container.replaceChildren(span);
+  return span;
 }
 
 async function loadBranding() {

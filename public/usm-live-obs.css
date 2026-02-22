@@ -40,12 +40,15 @@ body {
 }
 
 .obs-scoreboard {
+  flex: 0 0 auto;
   border: 1px solid #181b25;
   border-radius: 10px;
   background: #030303;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
+  z-index: 2;
 }
 
 .score-top {
@@ -259,6 +262,8 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .feed-head {
