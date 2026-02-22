@@ -158,8 +158,8 @@ function renderScoreboard(summary, selectedGame) {
   renderBaseDiamond(situation?.bases || null);
   renderInningIndicator(elements.gameStatus, summary, selectedGame);
   renderOutsDots(elements.outsStatus, situation);
-  renderMatchupStrip(situation);
-  applyStripBranding(awayTeam, homeTeam, inningIndicator.half);
+  renderMatchupStrip(situation, inningIndicator.half);
+  applyStripBranding(awayTeam, homeTeam);
 }
 
 function renderTeamLogo(logoEl, teamName) {
@@ -301,15 +301,23 @@ function renderOutsDots(target, situation) {
   target.append(wrap);
 }
 
-function renderMatchupStrip(situation) {
+function renderMatchupStrip(situation, inningHalf) {
+  const batter = normalizePlayerLabel(situation?.batter?.name);
+  const pitcher = normalizePlayerLabel(situation?.pitcher?.name);
+  const half = normalizeHalf(inningHalf);
+
+  // Left strip is always the away team. Right strip is always the home team.
+  const awayRole = half === "top" ? "BATTER" : "PITCHER";
+  const homeRole = half === "top" ? "PITCHER" : "BATTER";
+  const awayName = half === "top" ? batter : pitcher;
+  const homeName = half === "top" ? pitcher : batter;
+
   if (elements.pitcherLineText) {
-    const pitcher = normalizePlayerLabel(situation?.pitcher?.name);
-    elements.pitcherLineText.textContent = `PITCHER - ${pitcher}`;
+    elements.pitcherLineText.textContent = `${awayRole} - ${awayName}`;
   }
 
   if (elements.batterLineText) {
-    const batter = normalizePlayerLabel(situation?.batter?.name);
-    elements.batterLineText.textContent = `BATTER - ${batter}`;
+    elements.batterLineText.textContent = `${homeRole} - ${homeName}`;
   }
 
   queueSyncMatchupFontSize();
@@ -388,18 +396,13 @@ function measureStripTextWidth(text, styles, fontSizePx) {
   return baseWidth + letterSpacingWidth;
 }
 
-function applyStripBranding(awayTeam, homeTeam, inningHalf) {
+function applyStripBranding(awayTeam, homeTeam) {
   const away = getTeamPrimaryColor(awayTeam) || "#8a0014";
   const home = getTeamPrimaryColor(homeTeam) || "#070707";
-  const half = String(inningHalf || "").toLowerCase();
-  const isBottom = half === "bottom" || half === "bot";
 
-  // Top inning: away bats, home pitches. Bottom inning: home bats, away pitches.
-  const pitcherColor = isBottom ? away : home;
-  const batterColor = isBottom ? home : away;
-
-  applyStripColors(elements.pitcherLine, pitcherColor);
-  applyStripColors(elements.batterLine, batterColor);
+  // Keep team colors fixed by side: away on left strip, home on right strip.
+  applyStripColors(elements.pitcherLine, away);
+  applyStripColors(elements.batterLine, home);
 }
 
 function getTeamPrimaryColor(teamName) {
