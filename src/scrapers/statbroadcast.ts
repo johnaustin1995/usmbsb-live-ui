@@ -636,18 +636,89 @@ function parsePitchCountForPitcher(
     return null;
   }
 
-  const headers = selectedCard
-    .find("thead th")
-    .map((_: number, node: Element) => cleanText($(node).text()).toUpperCase())
-    .get();
-  const values = selectedCard
-    .find("tbody tr")
-    .first()
-    .find("td")
-    .map((_: number, node: Element) => cleanText($(node).text()))
-    .get();
+  const table = selectedCard.find("table").first();
+  if (table.length === 0) {
+    return null;
+  }
 
-  return parseColumnValue(headers, values, "PC");
+  const headerRows = table
+    .find("thead tr")
+    .toArray()
+    .map((row: Element) =>
+      $(row)
+        .find("th")
+        .map((_: number, node: Element) => cleanText($(node).text()).toUpperCase())
+        .get()
+    );
+
+  const bodyRows = table
+    .find("tbody tr")
+    .toArray()
+    .map((row: Element) =>
+      $(row)
+        .find("td")
+        .map((_: number, node: Element) => cleanText($(node).text()))
+        .get()
+    );
+
+  if (headerRows.length === 0 || bodyRows.length === 0) {
+    return null;
+  }
+
+  const todayPitchCount = parsePitchCountFromHeaderRows(headerRows, bodyRows, true);
+  if (todayPitchCount !== null) {
+    return todayPitchCount;
+  }
+
+  const anyPitchCount = parsePitchCountFromHeaderRows(headerRows, bodyRows, false);
+  if (anyPitchCount !== null) {
+    return anyPitchCount;
+  }
+
+  // Backward-compatible fallback for simple single-header/single-row tables.
+  const flatHeaders = headerRows.flat();
+  for (const values of bodyRows) {
+    const parsed = parseColumnValue(flatHeaders, values, "PC");
+    if (parsed !== null) {
+      return parsed;
+    }
+  }
+
+  return null;
+}
+
+function parsePitchCountFromHeaderRows(
+  headerRows: string[][],
+  bodyRows: string[][],
+  requireTodayRow: boolean
+): number | null {
+  for (let index = 0; index < headerRows.length; index += 1) {
+    const headers = headerRows[index] ?? [];
+    if (headers.length === 0) {
+      continue;
+    }
+
+    if (requireTodayRow && !headers.includes("TODAY")) {
+      continue;
+    }
+
+    const pcIndex = headers.indexOf("PC");
+    if (pcIndex < 0) {
+      continue;
+    }
+
+    const values = bodyRows[Math.min(index, bodyRows.length - 1)] ?? [];
+    if (pcIndex >= values.length) {
+      continue;
+    }
+
+    const parsed = parseInteger(values[pcIndex]);
+    if (parsed !== null) {
+      return parsed;
+    }
+  }
+
+  return null;
 }
 
 function selectPitchingCard(

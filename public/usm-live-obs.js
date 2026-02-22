@@ -97,7 +97,7 @@ async function fetchAndRender() {
       elements.atbatCount.textContent = "-";
     }
     if (elements.pitcherLineText) {
-      elements.pitcherLineText.textContent = "PITCHER - -";
+      elements.pitcherLineText.textContent = "--  P --";
     }
     if (elements.batterLineText) {
       elements.batterLineText.textContent = "BATTER - -";
@@ -364,21 +364,27 @@ function renderAtBatCount(target, situation) {
 
 function renderMatchupStrip(situation, inningHalf) {
   const batter = normalizePlayerLabel(situation?.batter?.name);
-  const pitcher = normalizePlayerLabel(situation?.pitcher?.name);
+  const pitcherLine = formatPitcherDisplay(situation?.pitcher?.name, situation?.pitcher?.pitchCount);
   const half = normalizeHalf(inningHalf);
+  const batterLine = `BATTER - ${batter}`;
 
   // Left strip is always the away team. Right strip is always the home team.
-  const awayRole = half === "top" ? "BATTER" : "PITCHER";
-  const homeRole = half === "top" ? "PITCHER" : "BATTER";
-  const awayName = half === "top" ? batter : pitcher;
-  const homeName = half === "top" ? pitcher : batter;
+  let awayText = pitcherLine;
+  let homeText = batterLine;
+  if (half === "top") {
+    awayText = batterLine;
+    homeText = pitcherLine;
+  } else if (half === "bottom") {
+    awayText = pitcherLine;
+    homeText = batterLine;
+  }
 
   if (elements.pitcherLineText) {
-    elements.pitcherLineText.textContent = `${awayRole} - ${awayName}`;
+    elements.pitcherLineText.textContent = awayText;
   }
 
   if (elements.batterLineText) {
-    elements.batterLineText.textContent = `${homeRole} - ${homeName}`;
+    elements.batterLineText.textContent = homeText;
   }
 
   queueSyncMatchupFontSize();
@@ -503,6 +509,34 @@ function chooseReadableTextColor(hexColor) {
 function normalizePlayerLabel(value) {
   const text = prettifyNames(value || "").trim().toUpperCase();
   return text.length > 0 ? text : "-";
+}
+
+function formatPitcherDisplay(name, pitchCount) {
+  const lastName = normalizePitcherLastName(name);
+  const rawCount = Number.isFinite(pitchCount) ? Math.trunc(Number(pitchCount)) : null;
+  const countLabel = rawCount !== null && rawCount >= 0 ? String(rawCount) : "--";
+  return `${lastName}  P ${countLabel}`;
+}
+
+function normalizePitcherLastName(value) {
+  const raw = String(value || "").trim();
+  if (!raw) {
+    return "--";
+  }
+
+  if (raw.includes(",")) {
+    const [lastPart] = raw.split(",", 1);
+    const lastName = toTitle(lastPart || "");
+    return lastName || "--";
+  }
+
+  const pretty = prettifyNames(raw).trim();
+  if (!pretty) {
+    return "--";
+  }
+
+  const tokens = pretty.split(/\s+/).filter(Boolean);
+  return tokens.length > 0 ? toTitle(tokens[tokens.length - 1]) : "--";
 }
 
 function renderBaseDiamond(bases) {
