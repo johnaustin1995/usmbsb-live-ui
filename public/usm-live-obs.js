@@ -216,7 +216,7 @@ function renderFeed(plays) {
 
     const text = document.createElement("div");
     text.className = "text";
-    text.textContent = prettifyNames(play.text || "");
+    text.textContent = formatPlayDescription(play.text || "");
 
     item.append(text);
 
@@ -591,6 +591,50 @@ function classifyPlay(play, options = {}) {
   if (reachesBase) return { label: "On Base", tone: "onbase" };
   if (out) return { label: "Out", tone: "out" };
   return null;
+}
+
+function formatPlayDescription(text) {
+  return expandPositionAbbreviations(uppercasePitchSequenceCodes(prettifyNames(text)));
+}
+
+function uppercasePitchSequenceCodes(text) {
+  return String(text || "").replace(/\((\d+\s*-\s*\d+)\s+([A-Za-z]+)\)/g, (_match, count, sequence) => {
+    return `(${count} ${String(sequence).toUpperCase()})`;
+  });
+}
+
+function expandPositionAbbreviations(text) {
+  let output = String(text || "");
+
+  const multiTokenMap = {
+    "1b": "first base",
+    "2b": "second base",
+    "3b": "third base",
+    ss: "shortstop",
+    lf: "left field",
+    cf: "center field",
+    rf: "right field",
+    dh: "designated hitter",
+    ph: "pinch hitter",
+    pr: "pinch runner",
+  };
+
+  output = output.replace(/\b(1b|2b|3b|ss|lf|cf|rf|dh|ph|pr)\b/gi, (token) => {
+    const replacement = multiTokenMap[String(token).toLowerCase()];
+    return replacement || token;
+  });
+
+  output = output
+    .replace(/\bc to\b/gi, "catcher to")
+    .replace(/\bp to\b/gi, "pitcher to")
+    .replace(/\bto c\b/gi, "to catcher")
+    .replace(/\bto p\b/gi, "to pitcher")
+    .replace(/\bby c\b/gi, "by catcher")
+    .replace(/\bby p\b/gi, "by pitcher")
+    .replace(/\bfor c\b/gi, "for catcher")
+    .replace(/\bfor p\b/gi, "for pitcher");
+
+  return output;
 }
 
 function toneWithScoring(baseTone, scoring) {
