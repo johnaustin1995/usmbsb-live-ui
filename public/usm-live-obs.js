@@ -147,6 +147,7 @@ function renderScoreboard(summary, selectedGame) {
   const awayTeam = summary?.visitorTeam || selectedGame?.awayTeam || "Away";
   const homeTeam = summary?.homeTeam || selectedGame?.homeTeam || "Home";
   const situation = summary?.situation || null;
+  const inningIndicator = buildInningIndicator(summary, selectedGame);
 
   renderTeamLogo(elements.awayLogo, awayTeam);
   renderTeamLogo(elements.homeLogo, homeTeam);
@@ -158,7 +159,7 @@ function renderScoreboard(summary, selectedGame) {
   renderInningIndicator(elements.gameStatus, summary, selectedGame);
   renderOutsDots(elements.outsStatus, situation);
   renderMatchupStrip(situation);
-  applyStripBranding(awayTeam, homeTeam);
+  applyStripBranding(awayTeam, homeTeam, inningIndicator.half);
 }
 
 function renderTeamLogo(logoEl, teamName) {
@@ -387,12 +388,18 @@ function measureStripTextWidth(text, styles, fontSizePx) {
   return baseWidth + letterSpacingWidth;
 }
 
-function applyStripBranding(awayTeam, homeTeam) {
+function applyStripBranding(awayTeam, homeTeam, inningHalf) {
   const away = getTeamPrimaryColor(awayTeam) || "#8a0014";
   const home = getTeamPrimaryColor(homeTeam) || "#070707";
+  const half = String(inningHalf || "").toLowerCase();
+  const isBottom = half === "bottom" || half === "bot";
 
-  applyStripColors(elements.pitcherLine, away);
-  applyStripColors(elements.batterLine, home);
+  // Top inning: away bats, home pitches. Bottom inning: home bats, away pitches.
+  const pitcherColor = isBottom ? away : home;
+  const batterColor = isBottom ? home : away;
+
+  applyStripColors(elements.pitcherLine, pitcherColor);
+  applyStripColors(elements.batterLine, batterColor);
 }
 
 function getTeamPrimaryColor(teamName) {
