@@ -515,7 +515,7 @@ function formatPitcherDisplay(name, pitchCount) {
   const lastName = normalizePitcherLastName(name);
   const rawCount = Number.isFinite(pitchCount) ? Math.trunc(Number(pitchCount)) : null;
   const countLabel = rawCount !== null && rawCount >= 0 ? String(rawCount) : "--";
-  return `${lastName}  P ${countLabel}`;
+  return `${lastName}\u00A0\u00A0\u00A0P ${countLabel}`;
 }
 
 function normalizePitcherLastName(value) {
