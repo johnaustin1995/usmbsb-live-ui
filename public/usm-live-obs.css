@@ -136,12 +136,6 @@ body {
   box-shadow: 0 0 8px rgba(243, 193, 63, 0.45);
 }
 
-.status-meta {
-  margin: 7px 0 0;
-  font-size: 12px;
-  color: var(--muted);
-}
-
 .feed-panel {
   flex: 1 1 auto;
   min-height: 0;

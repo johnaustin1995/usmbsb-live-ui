@@ -15,7 +15,6 @@ const elements = {
   homeScore: document.getElementById("home-score"),
   gameStatus: document.getElementById("game-status"),
   outsStatus: document.getElementById("outs-status"),
-  statusMeta: document.getElementById("status-meta"),
   feedCount: document.getElementById("feed-count"),
   playFeed: document.getElementById("play-feed"),
 };
@@ -84,28 +83,13 @@ function render(payload) {
   const live = payload.live || {};
   const summary = live.summary || null;
   const plays = Array.isArray(live.plays) ? live.plays : [];
-  const summaryError = live.summaryError || null;
 
   if (selectedGameId) {
     state.selectedGameId = selectedGameId;
   }
 
-  renderMeta(summary, selectedGame, summaryError, payload.nowEpoch);
   renderScoreboard(summary, selectedGame);
   renderFeed(plays);
-}
-
-function renderMeta(summary, selectedGame, summaryError, nowEpoch) {
-  const now = nowEpoch ? new Date(nowEpoch * 1000).toLocaleTimeString() : new Date().toLocaleTimeString();
-  if (summaryError) {
-    elements.statusMeta.textContent = `StatBroadcast unavailable (${summaryError}) | ${now}`;
-    return;
-  }
-
-  const away = summary?.visitorTeam || selectedGame?.awayTeam || "Away";
-  const home = summary?.homeTeam || selectedGame?.homeTeam || "Home";
-  const idPart = state.selectedGameId ? `Game ${state.selectedGameId}` : "No game id";
-  elements.statusMeta.textContent = `${away} at ${home} | ${idPart} | ${now}`;
 }
 
 function renderScoreboard(summary, selectedGame) {
