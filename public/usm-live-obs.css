@@ -5,6 +5,7 @@
   --text: #eaf1ff;
   --muted: #9aacd2;
   --accent: #3ba7ff;
+  --count-font-size: 46px;
 }
 
 * {
@@ -174,14 +175,14 @@ body {
 
 .inning-number {
   font-family: "Inter", sans-serif;
-  font-size: 82px;
+  font-size: var(--count-font-size);
   font-weight: 900;
   line-height: 1;
 }
 
 .inning-phase {
   font-family: "Inter", sans-serif;
-  font-size: 41px;
+  font-size: calc(var(--count-font-size) * 0.5);
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0.02em;
@@ -196,7 +197,7 @@ body {
   min-width: 92px;
   text-align: center;
   font-family: "Inter", sans-serif;
-  font-size: 46px;
+  font-size: var(--count-font-size);
   line-height: 1;
   font-weight: 800;
   letter-spacing: 0.01em;
