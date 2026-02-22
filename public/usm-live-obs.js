@@ -521,17 +521,42 @@ function setBaseOccupied(node, occupied) {
 
 function normalizeBaseOccupancy(bases) {
   const mask = parseMaskValue(bases?.mask);
-  const firstFromMask = mask !== null ? (mask & 1) === 1 : null;
-  const secondFromMask = mask !== null ? (mask & 2) === 2 : null;
-  const thirdFromMask = mask !== null ? (mask & 4) === 4 : null;
+  const decoded = decodeBaseMask(mask);
   const firstExplicit = readExplicitBaseOccupancy(bases?.first);
   const secondExplicit = readExplicitBaseOccupancy(bases?.second);
   const thirdExplicit = readExplicitBaseOccupancy(bases?.third);
 
   return {
-    first: firstExplicit ?? firstFromMask ?? toBaseOccupied(bases?.first),
-    second: secondExplicit ?? secondFromMask ?? toBaseOccupied(bases?.second),
-    third: thirdExplicit ?? thirdFromMask ?? toBaseOccupied(bases?.third),
+    first: firstExplicit ?? decoded.first ?? toBaseOccupied(bases?.first),
+    second: secondExplicit ?? decoded.second ?? toBaseOccupied(bases?.second),
+    third: thirdExplicit ?? decoded.third ?? toBaseOccupied(bases?.third),
+  };
+}
+
+function decodeBaseMask(mask) {
+  if (mask === null) {
+    return { first: null, second: null, third: null };
+  }
+
+  const mappedByIcon = {
+    0: { first: false, second: false, third: false },
+    1: { first: true, second: false, third: false },
+    2: { first: false, second: true, third: false },
+    3: { first: false, second: false, third: true },
+    4: { first: true, second: true, third: false },
+    5: { first: false, second: true, third: true },
+    6: { first: true, second: false, third: true },
+    7: { first: true, second: true, third: true },
+  };
+
+  if (Object.prototype.hasOwnProperty.call(mappedByIcon, mask)) {
+    return mappedByIcon[mask];
+  }
+
+  return {
+    first: (mask & 1) === 1,
+    second: (mask & 2) === 2,
+    third: (mask & 4) === 4,
   };
 }
 

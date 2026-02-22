@@ -431,6 +431,8 @@ function parseLiveSituation(
     return null;
   }
 
+  const bases = parseRunnersOnBaseCard($, baseMask) ?? decodeBaseOccupancy(baseMask);
+
   return {
     inningText,
     half,
@@ -440,18 +442,96 @@ function parseLiveSituation(
       strikes,
     },
     outs,
-    bases: {
-      first: baseMask !== null ? (baseMask & 1) === 1 : false,
-      second: baseMask !== null ? (baseMask & 2) === 2 : false,
-      third: baseMask !== null ? (baseMask & 4) === 4 : false,
-      mask: baseMask,
-    },
+    bases,
     battingTeam,
     batter,
     pitcher: {
       name: pitcherName,
       pitchCount: pitcherPitchCount,
     },
+  };
+}
+
+function decodeBaseOccupancy(baseMask: number | null): LiveSituation["bases"] {
+  if (baseMask === null) {
+    return {
+      first: false,
+      second: false,
+      third: false,
+      mask: null,
+    };
+  }
+
+  // StatBroadcast base icons behave like enum states (0-7), not binary bit flags.
+  const mappedByIcon: Record<number, { first: boolean; second: boolean; third: boolean }> = {
+    0: { first: false, second: false, third: false },
+    1: { first: true, second: false, third: false },
+    2: { first: false, second: true, third: false },
+    3: { first: false, second: false, third: true },
+    4: { first: true, second: true, third: false },
+    5: { first: false, second: true, third: true },
+    6: { first: true, second: false, third: true },
+    7: { first: true, second: true, third: true },
+  };
+
+  const fromEnum = mappedByIcon[baseMask];
+  if (fromEnum) {
+    return {
+      ...fromEnum,
+      mask: baseMask,
+    };
+  }
+
+  return {
+    first: (baseMask & 1) === 1,
+    second: (baseMask & 2) === 2,
+    third: (baseMask & 4) === 4,
+    mask: baseMask,
+  };
+}
+
+function parseRunnersOnBaseCard(
+  $: ReturnType<typeof load>,
+  baseMask: number | null
+): LiveSituation["bases"] | null {
+  const runnersCard = $(".card")
+    .filter((_: number, node: Element) =>
+      /^runners on base$/i.test(cleanText($(node).find(".card-header").first().text()))
+    )
+    .first();
+
+  if (runnersCard.length === 0) {
+    return null;
+  }
+
+  let first = false;
+  let second = false;
+  let third = false;
+
+  runnersCard.find("tbody tr").each((_: number, row: Element) => {
+    const baseLabel = cleanText($(row).find("td").first().text()).toUpperCase();
+    if (baseLabel === "1B") {
+      first = true;
+      return;
+    }
+    if (baseLabel === "2B") {
+      second = true;
+      return;
+    }
+    if (baseLabel === "3B") {
+      third = true;
+    }
+  });
+
+  if (!first && !second && !third) {
+    return null;
+  }
+
+  return {
+    first,
+    second,
+    third,
+    mask: baseMask,
   };
 }
 
