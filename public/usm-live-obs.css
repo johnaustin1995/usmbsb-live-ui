@@ -326,6 +326,25 @@ body {
   font-size: 26px;
   border: 1px solid #2857b9;
   color: #8bc8ff;
+  background: rgba(40, 87, 185, 0.14);
+}
+
+.chip--out {
+  border-color: #d04545;
+  color: #ffb3b3;
+  background: rgba(208, 69, 69, 0.18);
+}
+
+.chip--onbase {
+  border-color: #2f83ff;
+  color: #8ec5ff;
+  background: rgba(47, 131, 255, 0.18);
+}
+
+.chip--scoring {
+  border-color: #2ea44f;
+  color: #a8f3bf;
+  background: rgba(46, 164, 79, 0.22);
 }
 
 .empty {

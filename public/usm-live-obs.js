@@ -218,8 +218,8 @@ function renderFeed(plays) {
     const tag = classifyPlay(play.text || "");
     if (tag) {
       const chip = document.createElement("span");
-      chip.className = "chip";
-      chip.textContent = tag;
+      chip.className = `chip${tag.tone ? ` chip--${tag.tone}` : ""}`;
+      chip.textContent = tag.label;
       item.append(chip);
     }
 
@@ -475,16 +475,43 @@ function normalizeHalf(value) {
 
 function classifyPlay(text) {
   const lower = text.toLowerCase();
-  if (lower.includes("home run") || lower.includes("homered")) return "Home Run";
-  if (lower.includes("doubled")) return "Double";
-  if (lower.includes("tripled")) return "Triple";
-  if (lower.includes("singled")) return "Single";
-  if (lower.includes("walked")) return "Walk";
-  if (lower.includes("struck out")) return "Strikeout";
-  if (lower.includes("pinch hit")) return "Pinch Hit";
-  if (lower.includes("to p for")) return "Pitching Change";
-  if (lower.includes("stole")) return "Stolen Base";
-  return "";
+  const scoring = isScoringPlay(lower);
+  const reachesBase = isReachesBasePlay(lower);
+  const out = isOutPlay(lower);
+
+  if (lower.includes("home run") || lower.includes("homered")) return { label: "Home Run", tone: "scoring" };
+  if (lower.includes("doubled")) return { label: "Double", tone: scoring ? "scoring" : "onbase" };
+  if (lower.includes("tripled")) return { label: "Triple", tone: scoring ? "scoring" : "onbase" };
+  if (lower.includes("singled")) return { label: "Single", tone: scoring ? "scoring" : "onbase" };
+  if (lower.includes("walked") || lower.includes("intentional walk")) return { label: "Walk", tone: "onbase" };
+  if (lower.includes("hit by pitch") || /\bhbp\b/u.test(lower)) return { label: "HBP", tone: "onbase" };
+  if (lower.includes("struck out") || lower.includes("strikeout")) return { label: "Strikeout", tone: "out" };
+  if (lower.includes("pinch hit")) return { label: "Pinch Hit", tone: scoring ? "scoring" : null };
+  if (lower.includes("to p for")) return { label: "Pitching Change", tone: null };
+  if (lower.includes("stole") || lower.includes("stolen base")) return { label: "Stolen Base", tone: "onbase" };
+  if (scoring) return { label: "Scoring Play", tone: "scoring" };
+  if (reachesBase) return { label: "On Base", tone: "onbase" };
+  if (out) return { label: "Out", tone: "out" };
+  return null;
+}
+
+function isScoringPlay(lower) {
+  return /\bscor(?:ed|es|ing)\b|home run|homered|grand slam|walk-off/u.test(lower);
+}
+
+function isReachesBasePlay(lower) {
+  return (
+    /\bsingled\b|\bdoubled\b|\btripled\b|\bwalked\b|\bintentional walk\b|\bhit by pitch\b|\bhbp\b/u.test(lower) ||
+    /\breached on\b|\breaches on\b|\breached first\b|\breaches first\b|\bsafe on\b/u.test(lower) ||
+    /\bcatcher'?s interference\b|\bon error\b|\bstole\b|\bstolen base\b/u.test(lower)
+  );
+}
+
+function isOutPlay(lower) {
+  return (
+    /\bstruck out\b|\bstrikeout\b|\bflied out\b|\bgrounded out\b|\blined out\b|\bfouled out\b|\bpopped up\b/u.test(lower) ||
+    /\binfield fly\b|\bdouble play\b|\btriple play\b|\bout at (?:first|second|third|home)\b/u.test(lower)
+  );
 }
 
 function prettifyNames(text) {
