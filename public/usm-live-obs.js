@@ -15,7 +15,6 @@ const elements = {
   homeScore: document.getElementById("home-score"),
   gameStatus: document.getElementById("game-status"),
   outsStatus: document.getElementById("outs-status"),
-  feedCount: document.getElementById("feed-count"),
   playFeed: document.getElementById("play-feed"),
 };
 
@@ -134,7 +133,6 @@ function renderTeamLogo(logoEl, teamName) {
 
 function renderFeed(plays) {
   const ordered = [...plays].reverse();
-  elements.feedCount.textContent = `${ordered.length} plays`;
   elements.playFeed.innerHTML = "";
 
   if (ordered.length === 0) {
