@@ -1,7 +1,7 @@
 :root {
-  --bg: #050913;
-  --panel: #0d1428;
-  --panel-border: #1a2747;
+  --bg: #030303;
+  --panel: #030303;
+  --panel-border: #181b25;
   --text: #eaf1ff;
   --muted: #9aacd2;
   --accent: #3ba7ff;
@@ -18,7 +18,7 @@ body {
   height: 100%;
   overflow: hidden;
   font-family: "Inter", sans-serif;
-  background: radial-gradient(1400px 900px at 25% 15%, #15203b 0%, var(--bg) 58%);
+  background: var(--bg);
   color: var(--text);
 }
 
@@ -36,7 +36,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 22px;
-  gap: 18px;
+  gap: 0;
 }
 
 .obs-scoreboard {
@@ -46,7 +46,6 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  min-height: 360px;
 }
 
 .score-top {
@@ -203,26 +202,38 @@ body {
 
 .score-bottom {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   border-top: 1px solid #1a1a1a;
 }
 
 .pitcher-line,
 .batter-line {
   margin: 0;
-  min-height: 76px;
+  min-height: 72px;
+  min-width: 0;
   display: flex;
   align-items: center;
-  padding: 10px 18px;
+  padding: 10px 16px;
   font-family: "Inter", sans-serif;
-  font-size: 38px;
-  font-weight: 800;
+  font-size: 24px;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: 0.03em;
+  letter-spacing: 0;
   color: #f8fbff;
-  white-space: nowrap;
   overflow: hidden;
+}
+
+.strip-line-text {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 1;
   text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.pitcher-line .strip-line-text {
+  text-align: left;
 }
 
 .pitcher-line {
@@ -234,13 +245,17 @@ body {
   justify-content: flex-end;
 }
 
+.batter-line .strip-line-text {
+  text-align: right;
+}
+
 .feed-panel {
   flex: 1 1 auto;
   min-height: 0;
   border: 1px solid var(--panel-border);
-  border-radius: 18px;
-  background: linear-gradient(170deg, #111a33, #0a1124);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+  border-radius: 0 0 18px 18px;
+  background: var(--panel);
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -251,7 +266,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 16px 18px;
-  border-bottom: 1px solid var(--panel-border);
+  border-bottom: 1px solid #1a1a1a;
 }
 
 .feed-head h1 {

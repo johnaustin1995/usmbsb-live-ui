@@ -1,9 +1,14 @@
 const REFRESH_INTERVAL_MS = 15000;
+const STRIP_MAX_FONT_PX = 24;
+const STRIP_MIN_FONT_PX = 8;
 const brandingApi = window.ncaabsbBranding || null;
+const stripTextMeasureCanvas = document.createElement("canvas");
+const stripTextMeasureCtx = stripTextMeasureCanvas.getContext("2d");
 
 const state = {
   selectedGameId: null,
   timer: null,
+  stripFitFrame: null,
 };
 
 const elements = {
@@ -17,7 +22,9 @@ const elements = {
   gameStatus: document.getElementById("game-status"),
   outsStatus: document.getElementById("outs-status"),
   pitcherLine: document.getElementById("pitcher-line"),
+  pitcherLineText: document.getElementById("pitcher-line-text"),
   batterLine: document.getElementById("batter-line"),
+  batterLineText: document.getElementById("batter-line-text"),
   playFeed: document.getElementById("play-feed"),
 };
 
@@ -30,6 +37,11 @@ async function init() {
 
   await loadBranding();
   await fetchAndRender();
+
+  window.addEventListener("resize", queueSyncMatchupFontSize);
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(queueSyncMatchupFontSize).catch(() => {});
+  }
 
   state.timer = setInterval(fetchAndRender, REFRESH_INTERVAL_MS);
 }
@@ -58,12 +70,13 @@ async function fetchAndRender() {
     if (elements.outsStatus) {
       elements.outsStatus.textContent = "";
     }
-    if (elements.pitcherLine) {
-      elements.pitcherLine.textContent = "PITCHER - -";
+    if (elements.pitcherLineText) {
+      elements.pitcherLineText.textContent = "PITCHER - -";
     }
-    if (elements.batterLine) {
-      elements.batterLine.textContent = "BATTER - -";
+    if (elements.batterLineText) {
+      elements.batterLineText.textContent = "BATTER - -";
     }
+    queueSyncMatchupFontSize();
     if (elements.playFeed) {
       elements.playFeed.innerHTML = `<p class="empty">Load failed: ${message}</p>`;
     }
@@ -271,15 +284,90 @@ function renderOutsDots(target, situation) {
 }
 
 function renderMatchupStrip(situation) {
-  if (elements.pitcherLine) {
+  if (elements.pitcherLineText) {
     const pitcher = normalizePlayerLabel(situation?.pitcher?.name);
-    elements.pitcherLine.textContent = `PITCHER - ${pitcher}`;
+    elements.pitcherLineText.textContent = `PITCHER - ${pitcher}`;
   }
 
-  if (elements.batterLine) {
+  if (elements.batterLineText) {
     const batter = normalizePlayerLabel(situation?.batter?.name);
-    elements.batterLine.textContent = `BATTER - ${batter}`;
+    elements.batterLineText.textContent = `BATTER - ${batter}`;
   }
+
+  queueSyncMatchupFontSize();
+}
+
+function queueSyncMatchupFontSize() {
+  if (state.stripFitFrame !== null) {
+    cancelAnimationFrame(state.stripFitFrame);
+  }
+
+  state.stripFitFrame = requestAnimationFrame(() => {
+    state.stripFitFrame = null;
+    syncMatchupFontSize();
+  });
+}
+
+function syncMatchupFontSize() {
+  const leftContainer = elements.pitcherLine;
+  const rightContainer = elements.batterLine;
+  const leftText = elements.pitcherLineText;
+  const rightText = elements.batterLineText;
+  if (!leftContainer || !rightContainer || !leftText || !rightText) {
+    return;
+  }
+
+  const leftAvailable = getTextContentWidth(leftContainer);
+  const rightAvailable = getTextContentWidth(rightContainer);
+  if (leftAvailable <= 0 || rightAvailable <= 0) {
+    return;
+  }
+
+  const leftValue = leftText.textContent ?? "";
+  const rightValue = rightText.textContent ?? "";
+  const leftStyles = window.getComputedStyle(leftText);
+  const rightStyles = window.getComputedStyle(rightText);
+
+  let fontSize = STRIP_MAX_FONT_PX;
+
+  while (fontSize > STRIP_MIN_FONT_PX) {
+    const leftWidth = measureStripTextWidth(leftValue, leftStyles, fontSize);
+    const rightWidth = measureStripTextWidth(rightValue, rightStyles, fontSize);
+    if (leftWidth <= leftAvailable && rightWidth <= rightAvailable) {
+      break;
+    }
+    fontSize -= 1;
+  }
+
+  leftText.style.fontSize = `${fontSize}px`;
+  rightText.style.fontSize = `${fontSize}px`;
+}
+
+function getTextContentWidth(container) {
+  const styles = window.getComputedStyle(container);
+  const leftPad = Number.parseFloat(styles.paddingLeft) || 0;
+  const rightPad = Number.parseFloat(styles.paddingRight) || 0;
+  return Math.max(0, container.clientWidth - leftPad - rightPad);
+}
+
+function measureStripTextWidth(text, styles, fontSizePx) {
+  if (!stripTextMeasureCtx) {
+    return Number.POSITIVE_INFINITY;
+  }
+
+  const fontStyle = styles.fontStyle || "normal";
+  const fontVariant = styles.fontVariant || "normal";
+  const fontWeight = styles.fontWeight || "700";
+  const fontFamily = styles.fontFamily || "Inter, sans-serif";
+
+  stripTextMeasureCtx.font = `${fontStyle} ${fontVariant} ${fontWeight} ${fontSizePx}px ${fontFamily}`;
+  const baseWidth = stripTextMeasureCtx.measureText(text).width;
+
+  const letterSpacingRaw = Number.parseFloat(styles.letterSpacing);
+  const letterSpacing = Number.isFinite(letterSpacingRaw) ? letterSpacingRaw : 0;
+  const letterSpacingWidth = Math.max(0, text.length - 1) * letterSpacing;
+
+  return baseWidth + letterSpacingWidth;
 }
 
 function applyStripBranding(awayTeam, homeTeam) {

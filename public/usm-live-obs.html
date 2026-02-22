@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/usm-live-obs.css" />
+    <link rel="stylesheet" href="/usm-live-obs.css?v=20260222d" />
   </head>
   <body>
     <main class="obs-root">
@@ -41,8 +41,12 @@
         </div>
 
         <div class="score-bottom">
-          <p id="pitcher-line" class="pitcher-line">Pitcher -</p>
-          <p id="batter-line" class="batter-line">Batter -</p>
+          <p id="pitcher-line" class="pitcher-line">
+            <span id="pitcher-line-text" class="strip-line-text">PITCHER - -</span>
+          </p>
+          <p id="batter-line" class="batter-line">
+            <span id="batter-line-text" class="strip-line-text">BATTER - -</span>
+          </p>
         </div>
       </header>
 
@@ -54,7 +58,7 @@
       </section>
     </main>
 
-    <script src="/branding.js" defer></script>
-    <script src="/usm-live-obs.js" defer></script>
+    <script src="/branding.js?v=20260222d" defer></script>
+    <script src="/usm-live-obs.js?v=20260222d" defer></script>
   </body>
 </html>
