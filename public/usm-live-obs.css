@@ -246,6 +246,10 @@ body {
   letter-spacing: 0;
   color: #f8fbff;
   overflow: hidden;
+  transition:
+    transform 460ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 300ms ease;
+  will-change: transform, opacity;
 }
 
 .strip-line-text {
@@ -265,9 +269,19 @@ body {
   background: #8a0014;
 }
 
+.pitcher-line.is-strip-hidden {
+  transform: translateX(-120%);
+  opacity: 0;
+}
+
 .batter-line {
   background: #070707;
   justify-content: flex-end;
+}
+
+.batter-line.is-strip-hidden {
+  transform: translateX(120%);
+  opacity: 0;
 }
 
 .batter-line .strip-line-text {

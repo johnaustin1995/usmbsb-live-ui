@@ -9,6 +9,9 @@ const state = {
   selectedGameId: null,
   timer: null,
   stripFitFrame: null,
+  stripAwaitingFirstPitch: false,
+  stripAwaitingHalf: null,
+  stripScoreBaseline: null,
 };
 
 const elements = {
@@ -164,6 +167,7 @@ function renderScoreboard(summary, selectedGame) {
   renderOutsDots(elements.outsStatus, situation);
   renderAtBatCount(elements.atbatCount, situation);
   renderMatchupStrip(situation, inningIndicator.half);
+  syncMatchupStripVisibility(inningIndicator, summary, situation);
   applyStripBranding(awayTeam, homeTeam);
 }
 
@@ -412,6 +416,102 @@ function renderMatchupStrip(situation, inningHalf) {
   }
 
   queueSyncMatchupFontSize();
+}
+
+function syncMatchupStripVisibility(indicator, summary, situation) {
+  const phase = String(indicator?.phase || "").toUpperCase();
+  const inning = Number.isFinite(indicator?.inning) ? Number(indicator.inning) : null;
+  const half = normalizeHalf(indicator?.half);
+
+  if ((phase === "MID" || phase === "END") && inning !== null) {
+    const expectedHalf = getExpectedHalfAfterPhase(phase, inning);
+    state.stripAwaitingFirstPitch = true;
+    state.stripAwaitingHalf = expectedHalf;
+    state.stripScoreBaseline = {
+      away: toScoreNumber(summary?.visitorScore),
+      home: toScoreNumber(summary?.homeScore),
+    };
+    setMatchupStripHidden(true);
+    return;
+  }
+
+  if (!state.stripAwaitingFirstPitch) {
+    setMatchupStripHidden(false);
+    return;
+  }
+
+  if (!half || inning === null) {
+    setMatchupStripHidden(true);
+    return;
+  }
+
+  if (state.stripAwaitingHalf) {
+    const awaitingHalf = normalizeHalf(state.stripAwaitingHalf.half);
+    const awaitingInning = Number.isFinite(state.stripAwaitingHalf.inning)
+      ? Number(state.stripAwaitingHalf.inning)
+      : null;
+    if (!awaitingHalf || awaitingInning === null || awaitingHalf !== half || awaitingInning !== inning) {
+      setMatchupStripHidden(true);
+      return;
+    }
+  }
+
+  if (didFirstPitchHappen(situation, summary)) {
+    state.stripAwaitingFirstPitch = false;
+    state.stripAwaitingHalf = null;
+    state.stripScoreBaseline = null;
+    setMatchupStripHidden(false);
+    return;
+  }
+
+  setMatchupStripHidden(true);
+}
+
+function getExpectedHalfAfterPhase(phase, inning) {
+  if (phase === "MID") {
+    return { half: "bottom", inning };
+  }
+  return { half: "top", inning: inning + 1 };
+}
+
+function didFirstPitchHappen(situation, summary) {
+  const balls = Number.isFinite(situation?.count?.balls) ? Math.max(0, Math.trunc(Number(situation.count.balls))) : 0;
+  const strikes = Number.isFinite(situation?.count?.strikes) ? Math.max(0, Math.trunc(Number(situation.count.strikes))) : 0;
+  if (balls > 0 || strikes > 0) {
+    return true;
+  }
+
+  const outs = Number.isFinite(situation?.outs) ? Math.max(0, Math.trunc(Number(situation.outs))) : 0;
+  if (outs > 0) {
+    return true;
+  }
+
+  const bases = situation?.bases || null;
+  if (bases && (toBaseOccupied(bases.first) || toBaseOccupied(bases.second) || toBaseOccupied(bases.third))) {
+    return true;
+  }
+
+  const baselineAway = toScoreNumber(state.stripScoreBaseline?.away);
+  const baselineHome = toScoreNumber(state.stripScoreBaseline?.home);
+  const currentAway = toScoreNumber(summary?.visitorScore);
+  const currentHome = toScoreNumber(summary?.homeScore);
+  if (baselineAway !== null && currentAway !== null && currentAway > baselineAway) {
+    return true;
+  }
+  if (baselineHome !== null && currentHome !== null && currentHome > baselineHome) {
+    return true;
+  }
+
+  return false;
+}
+
+function setMatchupStripHidden(hidden) {
+  if (elements.pitcherLine) {
+    elements.pitcherLine.classList.toggle("is-strip-hidden", hidden);
+  }
+  if (elements.batterLine) {
+    elements.batterLine.classList.toggle("is-strip-hidden", hidden);
+  }
 }
 
 function queueSyncMatchupFontSize() {
