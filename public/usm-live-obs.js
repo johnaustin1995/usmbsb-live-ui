@@ -976,7 +976,11 @@ function formatPlayDescription(text) {
 
 function uppercasePitchSequenceCodes(text) {
   return String(text || "").replace(/\((\d+\s*-\s*\d+)\s+([A-Za-z]+)\)/g, (_match, count, sequence) => {
-    return `(${count} ${String(sequence).toUpperCase()})`;
+    const sequenceText = String(sequence || "");
+    if (sequenceText.toLowerCase() === "count") {
+      return `(${count} count)`;
+    }
+    return `(${count} ${sequenceText.toUpperCase()})`;
   });
 }
 
@@ -1044,7 +1048,7 @@ function isOutPlay(lower) {
 function prettifyNames(text) {
   if (!text) return "";
   return text
-    .replace(/\b([A-Za-z][A-Za-z'.-]+),\s*([A-Za-z][A-Za-z'.-]+)\b/g, (_m, last, first) => {
+    .replace(/\b([A-Z][A-Za-z'.-]+),\s*([A-Z][A-Za-z'.-]+)\b/g, (_m, last, first) => {
       return `${toTitle(first)} ${toTitle(last)}`;
     })
     .replace(/\b([A-Z]{3,})\b/g, (word) => (word === word.toUpperCase() ? toTitle(word) : word));
