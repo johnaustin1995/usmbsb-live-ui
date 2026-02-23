@@ -12,6 +12,8 @@ const state = {
   stripAwaitingFirstPitch: false,
   stripAwaitingHalf: null,
   stripScoreBaseline: null,
+  feedHasRendered: false,
+  feedTopPlayKey: null,
 };
 
 const elements = {
@@ -197,13 +199,38 @@ function renderTeamLogo(logoEl, teamName) {
 
 function renderFeed(plays) {
   const ordered = [...plays].reverse();
-  elements.playFeed.innerHTML = "";
-
-  if (ordered.length === 0) {
-    elements.playFeed.innerHTML = '<p class="empty">No play-by-play data yet.</p>';
+  const container = elements.playFeed;
+  if (!container) {
     return;
   }
 
+  if (ordered.length === 0) {
+    container.innerHTML = '<p class="empty">No play-by-play data yet.</p>';
+    state.feedHasRendered = false;
+    state.feedTopPlayKey = null;
+    return;
+  }
+
+  const previousRectsByKey = new Map();
+  const existingByKey = new Map();
+  container.querySelectorAll(".feed-item[data-play-key]").forEach((node) => {
+    const key = node.getAttribute("data-play-key");
+    if (!key) {
+      return;
+    }
+    previousRectsByKey.set(key, node.getBoundingClientRect());
+    existingByKey.set(key, node);
+  });
+
+  const topPlayKey = getFeedPlayKey(ordered[0], 0);
+  const hasNewTopPlay =
+    state.feedHasRendered &&
+    typeof state.feedTopPlayKey === "string" &&
+    state.feedTopPlayKey.length > 0 &&
+    topPlayKey !== state.feedTopPlayKey;
+
+  const fragment = document.createDocumentFragment();
+  const renderedByKey = new Map();
   let previousHalfInning = null;
 
   for (let index = 0; index < ordered.length; index += 1) {
@@ -216,17 +243,37 @@ function renderFeed(plays) {
       const divider = document.createElement("div");
       divider.className = "feed-divider";
       divider.textContent = halfInningLabel;
-      elements.playFeed.append(divider);
+      fragment.append(divider);
       previousHalfInning = halfInningLabel;
     }
 
-    const item = document.createElement("article");
-    item.className = "feed-item";
+    const key = getFeedPlayKey(play, index);
+    let item = existingByKey.get(key);
+    if (!item) {
+      item = document.createElement("article");
+      item.className = "feed-item";
+      item.setAttribute("data-play-key", key);
+      if (hasNewTopPlay) {
+        item.classList.add("is-feed-entering");
+        item.addEventListener(
+          "animationend",
+          () => {
+            item.classList.remove("is-feed-entering");
+          },
+          { once: true }
+        );
+      }
+    } else {
+      item.classList.remove("is-feed-entering");
+    }
+
+    item.style.transform = "";
+    item.style.transition = "";
+    item.replaceChildren();
 
     const text = document.createElement("div");
     text.className = "text";
     text.textContent = formatPlayDescription(play.text || "");
-
     item.append(text);
 
     const tag = classifyPlay(play, { scoringOverride: scoringFromScores });
@@ -237,8 +284,70 @@ function renderFeed(plays) {
       item.append(chip);
     }
 
-    elements.playFeed.append(item);
+    fragment.append(item);
+    renderedByKey.set(key, item);
   }
+
+  container.replaceChildren(fragment);
+
+  if (hasNewTopPlay) {
+    animateFeedReorder(previousRectsByKey, renderedByKey);
+  }
+
+  state.feedHasRendered = true;
+  state.feedTopPlayKey = topPlayKey;
+}
+
+function getFeedPlayKey(play, index) {
+  const explicit = typeof play?.key === "string" ? play.key.trim() : "";
+  if (explicit.length > 0) {
+    return explicit;
+  }
+
+  const inning = Number.isFinite(play?.inning) ? Number(play.inning) : "u";
+  const half = String(play?.half || "u");
+  const order = Number.isFinite(play?.order) ? Number(play.order) : "u";
+  const text = String(play?.text || "").trim();
+  return `fallback:${inning}:${half}:${order}:${text || index}`;
+}
+
+function animateFeedReorder(previousRectsByKey, renderedByKey) {
+  const movedNodes = [];
+
+  for (const [key, node] of renderedByKey.entries()) {
+    const previousRect = previousRectsByKey.get(key);
+    if (!previousRect) {
+      continue;
+    }
+
+    const nextRect = node.getBoundingClientRect();
+    const deltaY = previousRect.top - nextRect.top;
+    if (Math.abs(deltaY) < 0.5) {
+      continue;
+    }
+
+    node.style.transition = "none";
+    node.style.transform = `translateY(${deltaY}px)`;
+    movedNodes.push(node);
+  }
+
+  if (movedNodes.length === 0) {
+    return;
+  }
+
+  requestAnimationFrame(() => {
+    for (const node of movedNodes) {
+      node.style.transition = "transform 420ms cubic-bezier(0.22, 1, 0.36, 1)";
+      node.style.transform = "";
+      node.addEventListener(
+        "transitionend",
+        () => {
+          node.style.transition = "";
+        },
+        { once: true }
+      );
+    }
+  });
 }
 
 function toHalfInningLabel(play) {

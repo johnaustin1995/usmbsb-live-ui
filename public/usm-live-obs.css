@@ -327,6 +327,22 @@ body {
   border-left: 4px solid #22345f;
   margin-left: 26px;
   position: relative;
+  will-change: transform, opacity;
+}
+
+.feed-item.is-feed-entering {
+  opacity: 0;
+  animation: feed-item-fade-in 360ms ease forwards;
+}
+
+@keyframes feed-item-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .feed-item::before {
